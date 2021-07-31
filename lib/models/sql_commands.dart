@@ -38,6 +38,86 @@ class MakeCommand{
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+  static Future<void> addSingleProtein(SingleProtein singleProtein) async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final Future<Database> database = openDatabase(
+      // Set the path to the database. Note: Using the `join` function from the
+      // `path` package is best practice to ensure the path is correctly
+      // constructed for each platform.
+      join(await getDatabasesPath(), 'proteins.db'),
+      onCreate: (db, version) {
+
+        return db.execute(
+          "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-')",
+        );
+      },
+      version: 0,
+    );
+    final Database db = await database;
+    try {
+      db.execute(
+        "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-')",
+      );
+    }catch(e){
+      print('e');
+    }
+
+    await db.insert(
+      'single_protein',
+      singleProtein.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    DateTime dateTime=DateTime.now();
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final String formatted = formatter.format(dateTime);
+    await db.delete(
+        'single_protein',
+        where: 'date < ?',
+        whereArgs: [formatted]
+    );
+  }
+  static Future<List<SingleProtein>> singleProteins() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final Future<Database> database = openDatabase(
+      // Set the path to the database. Note: Using the `join` function from the
+      // `path` package is best practice to ensure the path is correctly
+      // constructed for each platform.
+      join(await getDatabasesPath(), 'proteins.db'),
+      onCreate: (db, version) {
+
+        return db.execute(
+          "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-')",
+        );
+      },
+      version: 0,
+    );
+    // Get a reference to the database.
+    final db = await database;
+    try {
+      db.execute(
+        "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-')",
+      );
+    }catch(e){
+      print('e');
+    }
+
+    // Query the table for all The Dogs.
+    DateTime dateTime=DateTime.now();
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final String formatted = formatter.format(dateTime);
+    final List<Map<String, dynamic>> maps = await db.query('single_protein',where: 'date == ?',whereArgs: [formatted]);
+
+
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.generate(maps.length, (i) {
+      return SingleProtein(
+        date: maps[i]['date'],
+        number: maps[i]['number'],
+        text: maps[i]['text'],
+      );
+    });
+  }
 
   static Future<void> deleteProteins(DateTime dateTime) async {
     WidgetsFlutterBinding.ensureInitialized();

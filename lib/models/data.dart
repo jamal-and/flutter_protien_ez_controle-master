@@ -18,20 +18,58 @@ class Data extends ChangeNotifier {
   int proteinWillBeAdded;
   int kalanDaily=1;
   int proteinTake = 0;
+  String imagePath;
+  String userName;
+  List<SingleProtein> items=[SingleProtein(number: 0,text: 'Nothing to show')];
+  String kg='kg!';
   DateTime now = DateTime.now();
 
   // final DateTime dateTime=DateTime.parse(now);
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  setImagePath(String path)async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('image', path);
+    imagePath=path;
+    notifyListeners();
+  }
+  setGoal(int goal)async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('goal', goal);
+    proteinDaily=goal;
+
+    notifyListeners();
+  }
+  setName(String name)async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', name);
+    userName=name;
+    notifyListeners();
+  }
 
   Future<Protein> getWeight() async {
     now = DateTime.now();
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(prefs.getString('image')!=null){
+      imagePath=prefs.getString('image');
+    }
+    if(prefs.getString('name')!=null){
+      userName=prefs.getString('name');
+    }
+    if(prefs.getBool('kg')==null){
+      prefs.setBool('kg', true);
+    }
+    int goal =prefs.getInt('goal');
     final String formatted = formatter.format(now);
     nowProtein = await MakeCommand.proteins(now);
     if (nowProtein.weight!=0) {
       weight = nowProtein.weight;
-
-      proteinDaily = (weight * 2.1).toInt();
+      if(prefs.getBool('kg')) {
+        kg='kg';
+        goal==null ?proteinDaily = (weight * 2.1).toInt():proteinDaily=goal;
+      }else{
+        kg='Ibs';
+        goal==null ?proteinDaily = (weight).toInt():proteinDaily=goal;
+      }
     } else {
       await MakeCommand.insertProtein(Protein(
           date: formatted, weight: prefs.getInt('weight'), protein: 0, isDone: 0));
@@ -42,7 +80,29 @@ class Data extends ChangeNotifier {
     kalanDaily = proteinDaily - nowProtein.protein;
     return nowProtein;
   }
+  setKg(String s)async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int goal =prefs.getInt('goal');
+    kg=s;
+    if(s=='kg') {
 
+      kg='kg';
+      goal==null ?proteinDaily = (weight * 2.1).toInt():proteinDaily=goal;
+    }else{
+      kg='Ibs';
+      goal==null ?proteinDaily = (weight).toInt():proteinDaily=goal;
+    }
+    final String formatted = formatter.format(now);
+    nowProtein = await MakeCommand.proteins(now);
+    MakeCommand.insertProtein(Protein(
+      date: formatted,
+      weight: weight,
+      protein: nowProtein.protein,
+      isDone: 0,
+    ));
+    nowProtein = await MakeCommand.proteins(now);
+    notifyListeners();
+  }
   setWeight(newWeight) async {
     final String formatted = formatter.format(now);
     if (weight != 0) {
@@ -63,9 +123,12 @@ class Data extends ChangeNotifier {
       ));
       weight = 0;
     }
+
     notifyListeners();
   }
   editWeight(newWeight) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('weight', newWeight);
     final String formatted = formatter.format(now);
     nowProtein = await MakeCommand.proteins(now);
     MakeCommand.insertProtein(Protein(
@@ -80,7 +143,7 @@ class Data extends ChangeNotifier {
     notifyListeners();
   }
 
-  addProtein(int addedProtein) async {
+  addProtein(int addedProtein,String text) async {
     getWeight();
     kalanDaily = proteinDaily - (nowProtein.protein + addedProtein);
     final String formatted = formatter.format(now);
@@ -88,30 +151,45 @@ class Data extends ChangeNotifier {
     if (kalanDaily < 0) {
       kalanDaily = 0;
     }
-    if ((nowProtein.protein + addedProtein) >= proteinDaily) {
-      await MakeCommand.insertProtein(Protein(
-          date: formatted,
-          weight: weight,
-          protein: proteinDaily,
-          isDone:  1));
-      await MakeCommand.deleteProteins(DateTime.now().subtract(Duration(days: 7)));
-      nowProtein = await MakeCommand.proteins(now);
-      proteinTake = proteinDaily;
-    }else{
+    // if ((nowProtein.protein + addedProtein) >= proteinDaily) {
+    //   await MakeCommand.insertProtein(Protein(
+    //       date: formatted,
+    //       weight: weight,
+    //       protein: proteinDaily,
+    //       isDone:  1));
+    //   await MakeCommand.deleteProteins(DateTime.now().subtract(Duration(days: 7)));
+    //   nowProtein = await MakeCommand.proteins(now);
+    //   proteinTake = proteinDaily;
+    // }else{
       await MakeCommand.insertProtein(Protein(
           date: formatted,
           weight: weight,
           protein: (nowProtein.protein + addedProtein),
           isDone: 0));
+
+    await MakeCommand.addSingleProtein(SingleProtein(
+        date: formatted,
+        number: addedProtein,
+        text: text));
       nowProtein = await MakeCommand.proteins(now);
       proteinTake = proteinTake + addedProtein;
       await MakeCommand.deleteProteins(DateTime.now().subtract(Duration(days: 7)));
-    }
-    notifyListeners();
+      await getSingleProteins();
+      notifyListeners();
+  }
+
+  Future<List<SingleProtein>> getSingleProteins() async{
+    items= await MakeCommand.singleProteins();
+    //items=items.reversed.toList();
+    //print(items.length);
+    return items;
+
   }
 
   get7DaysState() async {
     try {
+      items= await MakeCommand.singleProteins();
+      print('${items.length} kk');
       nowProtein = await MakeCommand.proteins(DateTime.now());
       protein1 = await MakeCommand.proteins(
           DateTime.now().subtract(Duration(days: 1)));

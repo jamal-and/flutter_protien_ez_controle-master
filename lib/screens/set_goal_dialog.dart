@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:flutter_protien_ez_controle/models/data.dart';
 
 
-class EditWeightDialog extends StatefulWidget {
+class EditGoalDialog extends StatefulWidget {
   @override
-  _EditWeightDialogState createState() => _EditWeightDialogState();
+  _EditGoalDialogState createState() => _EditGoalDialogState();
 }
 
-class _EditWeightDialogState extends State<EditWeightDialog> {
+class _EditGoalDialogState extends State<EditGoalDialog> {
   @override
   Widget build(BuildContext context) {
     int mv;
@@ -25,13 +25,14 @@ class _EditWeightDialogState extends State<EditWeightDialog> {
           children: [
             SizedBox(height: 10,),
             Text(
-              'Edit your weight',
+              'Edit your goal',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 24),
             ),
             SizedBox(height: 10,),
             TextField(
               maxLength: 3,
+
                 onChanged: (v) {
                   // Provider.of<Data>(context).proteinWillBeAdded = int.parse(v);
                   mv = int.parse(v);
@@ -41,23 +42,23 @@ class _EditWeightDialogState extends State<EditWeightDialog> {
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  hintText: 'Your new weight here',
+                  hintText: 'Your new goal here',
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff70E1F1)),
+                    borderSide: BorderSide(color: Color(0xff70E1F1),),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff70E1F1)),
+                    borderSide: BorderSide(color: Color(0xff70E1F1),),
                   ),
                   border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff70E1F1)),
+                    borderSide: BorderSide(color: Color(0xff70E1F1),)),
                   ),
-                )),
+                ),
             SizedBox(height: 10,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                  style: TextButton.styleFrom(primary: Color(0xff70E1F1)),
+                  style: TextButton.styleFrom(primary: Color(0xff70E1F1),),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -69,7 +70,7 @@ class _EditWeightDialogState extends State<EditWeightDialog> {
                     //showNotification();
                     if (mv != null) {
                       await Provider.of<Data>(context, listen: false)
-                          .editWeight(mv);
+                          .setGoal(mv);
                       Navigator.pop(context);
                     } else {
                       final snackBar = SnackBar(
@@ -87,19 +88,7 @@ class _EditWeightDialogState extends State<EditWeightDialog> {
                         fontSize: 14, fontWeight: FontWeight.w600,color: Color(0xff223D5D)),),
                   ),
                 ),
-                // ElevatedButton(
-                //   style: ElevatedButton.styleFrom(primary: Color(0xfff27095)),
-                //   onPressed: () {
-                //     if(mv!=null) {
-                //       Provider.of<Data>(context,listen: false).addProtein(mv);
-                //       Navigator.pop(context);
-                //     }else{
-                //       final snackBar = SnackBar(content: Text('You forgot put a number!'));
-                //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                //     }
-                //   },
-                //   child: Text('Add'),
-                // ),
+
               ],
             )
           ],
