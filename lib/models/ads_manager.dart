@@ -1,14 +1,17 @@
-import 'package:admob_flutter/admob_flutter.dart';
+//import 'package:admob_flutter/admob_flutter.dart';
 
 class AdsManager{
   static bool testMode=false;
+  static String get nativeId{
+    return 'ca-app-pub-3940256099942544/2247696110';
+  }
   static String get appId{
       return 'ca-app-pub-8571844432257036~3219853575';
   }
   static String get bannerId{
       if(testMode){
         print('test mode ON');
-        return AdmobBanner.testAdUnitId;
+        return 'ca-app-pub-3940256099942544/6300978111';
       }else{
         return 'ca-app-pub-8571844432257036/4218128521';
       }
@@ -16,7 +19,7 @@ class AdsManager{
   static String get profileBannerId{
     if(testMode){
       print('test mode ON');
-      return AdmobBanner.testAdUnitId;
+      return 'ca-app-pub-3940256099942544/6300978111';
     }else{
       return 'ca-app-pub-8571844432257036/3460142676';
     }

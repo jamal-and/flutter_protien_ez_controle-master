@@ -5,10 +5,10 @@ import 'package:provider/provider.dart';
 import 'main_screen.dart';
 import 'package:flutter_protien_ez_controle/models/data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-class WelcomeScreen extends StatelessWidget {
-  int weight;
-  final controller=TextEditingController();
+class WelcomeScreen extends StatefulWidget {
   static String id = 'welcome_screen';
   static void getPrefs(context)async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -23,9 +23,21 @@ class WelcomeScreen extends StatelessWidget {
       prefs.setBool('kg', true);
     }
   }
+
+  @override
+  _WelcomeScreenState createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  int weight;
+
+  bool kg=false;
+
+  final controller=TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    getPrefs(context);
+    WelcomeScreen.getPrefs(context);
 
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -37,39 +49,79 @@ class WelcomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: height * 0.1,
-                ),
-                Text(
-                  'Welcome',
-                  style: TextStyle(
-                    letterSpacing: 3,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                    fontSize: 50,
-                  ),
-                ),
-                SizedBox(
                   height: height * 0.15,
                 ),
                 Text(
-                  'Enter your weight below',
+                  'Your current weight',
                   style: TextStyle(
 
+                    fontWeight: FontWeight.w600,
                     color: Colors.white,
-                    fontSize: 24,
+                    fontSize: 36,
                   ),
                 ),
-
+                SizedBox(
+                  height: height * 0.04,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    GestureDetector(
+                      onTap: ()async{
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.setBool('kg', false);
+                        setState(() {
+
+                          kg=false;
+                        });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 8,horizontal: 30),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.blue),
+                          color: kg?Color(0xff0E284D):Colors.blue,
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(50),bottomLeft: Radius.circular(50))
+                        ),
+                        child: Text('LBS',style: TextStyle(fontSize: 16),),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: ()async{
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.setBool('kg', true);
+                        setState(() {
+
+                          kg=true;
+                        });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 8,horizontal: 30),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.blue),
+                            color: kg?Colors.blue:Color(0xff0E284D),
+                            borderRadius: BorderRadius.only(topRight: Radius.circular(50),bottomRight: Radius.circular(50))
+                        ),
+                        child: Text('KG',style: TextStyle(fontSize: 16),),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: height * 0.08,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(kg?'kg':'lbs',style: TextStyle(fontSize: 30,color:Color(0xff0E284D) ),),
                     Container(
-                      height: 55,
-                      width: width * 0.13,
+
+                      width: width * 0.33,
                       child: TextField(
                         autofocus: true,
                         maxLength: 3,
+
+                        maxLines: 1,
                         controller: controller,
                         onChanged: (v){
                           if(v.isNotEmpty){
@@ -79,14 +131,15 @@ class WelcomeScreen extends StatelessWidget {
                           }
                         },
 
-                          style: TextStyle(fontSize: 24),
+                          style: TextStyle(fontSize: 44),
                           cursorColor: Color(0xff20B8F3),
                           keyboardType: TextInputType.number,
-                          textAlign: TextAlign.right,
+                          textAlign: TextAlign.center,
                           decoration: InputDecoration(
-                            hintStyle: TextStyle(fontSize: 24),
+                            counterText: '',
+                            hintStyle: TextStyle(fontSize: 44),
 
-                            hintText: '70',
+                            hintText: '',
                             contentPadding: EdgeInsets.zero,
 
                             enabledBorder: UnderlineInputBorder(
@@ -101,38 +154,50 @@ class WelcomeScreen extends StatelessWidget {
                           )),
                     ),
                     SizedBox(width: 5,),
-                    Container(height: 55,child: MyDropDown()),
+                    Text(kg?'kg':'lbs',style: TextStyle(fontSize: 30),),
                   ],
                 ),
-                SizedBox(
-                  height: height * 0.07,
-                ),
-                Container(
+                Spacer(),
+                GestureDetector(
+                  onTap: ()async{
+                    if(controller.text==null || controller.text.isEmpty)
+                    {
+                      showTopSnackBar(
+                        context,
+                        CustomSnackBar.error(
+                          message:
+                          "Please Enter Your Weight.",
+                        ),
+                      );
+                      return;
+                    }
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    try{
+                      //await MakeCommand.insertProtein(newweight);
+                      print('setting weight..');
+                      await Provider.of<Data>(context,listen: false).setWeight(weight);
+                      print('getting 7 days..');
+                      await Provider.of<Data>(context,listen: false).get7DaysState();
+                      print(weight);
+                      prefs.setInt('weight', weight);
 
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Color(0xff20B8F3),padding: EdgeInsets.symmetric(vertical: 8,horizontal: 32)),
-                    onPressed: () async{
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
 
-                      try{
-                        //await MakeCommand.insertProtein(newweight);
-                        print('setting weight..');
-                        await Provider.of<Data>(context,listen: false).setWeight(weight);
-                        print('getting 7 days..');
-                        await Provider.of<Data>(context,listen: false).get7DaysState();
-                        print(weight);
-                        prefs.setInt('weight', weight);
-
-
-                        Navigator.pushReplacementNamed(context, MainScreen.id);
-                      }catch(e){
-                        print(e);
-                      }
-
-                    },
-                    child: Text('Go!',style: TextStyle(fontSize: 24),),
+                      Navigator.pushReplacementNamed(context, MainScreen.id);
+                    }catch(e){
+                      print(e);
+                    }
+                  },
+                  child: Container(
+                    width: width*0.8,
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      gradient: LinearGradient(colors: [Color(0xff20B8F3),Color(0xff20B8F3)])
+                    ),
+                    child: Center(child: Text('NEXT',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
                   ),
                 ),
+                SizedBox(height: height*0.05,)
                 // Container(
                 //
                 //   child: ElevatedButton(
@@ -151,45 +216,5 @@ class WelcomeScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class MyDropDown extends StatefulWidget {
-  const MyDropDown({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  _MyDropDownState createState() => _MyDropDownState();
-}
-
-class _MyDropDownState extends State<MyDropDown> {
-  String dropValue='kg';
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton(
-      value: dropValue,
-      onChanged: (String newValue)async{
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        setState(() {
-          dropValue=newValue;
-          if(newValue=='kg'){
-            prefs.setBool('kg', true);
-          }else{
-            prefs.setBool('kg', false);
-          }
-        });
-      },
-
-      style: TextStyle(fontSize: 24),
-
-      underline: Container(height: 0.6,color: Color(0xff20B8F3),),
-
-      items:<String>['kg','Ibs'].map<DropdownMenuItem<String>>((String value) {
-      return DropdownMenuItem<String>(
-        value: value,
-        child: Text(value),
-      );
-    }).toList(),);
   }
 }

@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_protien_ez_controle/models/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_protien_ez_controle/models/data.dart';
-
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 class EditNameDialog extends StatefulWidget {
   @override
   _EditNameDialogState createState() => _EditNameDialogState();
 }
 
 class _EditNameDialogState extends State<EditNameDialog> {
+  String us='';
   TextEditingController controller=TextEditingController();
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    us=Provider.of<Data>(context,listen: false).userName??'';
+    controller=TextEditingController(text: us);
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -17,7 +26,7 @@ class _EditNameDialogState extends State<EditNameDialog> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20)
       ),
-      backgroundColor: Color(0xff243c5e),
+      backgroundColor: MyColors.background,
       content: Container(
 
         child: Column(
@@ -28,30 +37,33 @@ class _EditNameDialogState extends State<EditNameDialog> {
             Text(
               'Edit your Name',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontSize: 24,color: MyColors.textColor),
             ),
             SizedBox(height: 10,),
             TextField(
               maxLength: 18,
               controller: controller,
+
               onChanged: (v) {
                 // Provider.of<Data>(context).proteinWillBeAdded = int.parse(v);
                 //mv = int.parse(v);
               },
-              style: TextStyle(fontSize: 20),
-              cursorColor: Color(0xff70E1F1),
+              style: TextStyle(fontSize: 20,color: MyColors.textColor),
+              cursorColor: MyColors.accentColor,
               keyboardType: TextInputType.name,
               textAlign: TextAlign.center,
+
               decoration: InputDecoration(
+
                 hintText: 'Your name here',
                 enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xff70E1F1),),
+                  borderSide: BorderSide(color: MyColors.accentColor),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xff70E1F1),),
+                  borderSide: BorderSide(color: MyColors.accentColor),
                 ),
                 border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff70E1F1),)),
+                    borderSide: BorderSide(color: MyColors.accentColor,)),
               ),
             ),
             SizedBox(height: 10,),
@@ -59,7 +71,7 @@ class _EditNameDialogState extends State<EditNameDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                  style: TextButton.styleFrom(primary: Color(0xff70E1F1),),
+                  style: TextButton.styleFrom(primary: MyColors.accentColor,),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -69,15 +81,19 @@ class _EditNameDialogState extends State<EditNameDialog> {
                   onTap: () async {
                     //showBigPictureNotification();
                     //showNotification();
-                    if (controller.text != null) {
+                    if (controller.text != null &&controller.text.isNotEmpty) {
 
                       await Provider.of<Data>(context, listen: false).setName(controller.text);
                      // await Provider.of<Data>(context, listen: false).setGoal(mv);
                       Navigator.pop(context);
                     } else {
-                      final snackBar = SnackBar(
-                          content: Text('You forgot put a name!'));
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      showTopSnackBar(
+                        context,
+                        CustomSnackBar.error(
+                          message:
+                          "Please enter your name!",
+                        ),
+                      );
                     }
 
                   },
@@ -85,9 +101,9 @@ class _EditNameDialogState extends State<EditNameDialog> {
                     padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Color(0xff70E1F1),),
+                      color: MyColors.accentColor,),
                     child: Text('Change', style: TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w600,color: Color(0xff223D5D)),),
+                        fontSize: 14, fontWeight: FontWeight.w600,color: Colors.black87),),
                   ),
                 ),
 

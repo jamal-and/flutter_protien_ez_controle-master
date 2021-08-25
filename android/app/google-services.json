@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1043339872162",
+    "project_id": "protein-tracker-7a2bd",
+    "storage_bucket": "protein-tracker-7a2bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043339872162:android:e11b0734baf7b341b3d4fb",
+        "android_client_info": {
+          "package_name": "com.jamal.protein"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043339872162-u58l862ldoe067d8lnr0i5lb3kba4eed.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jamal.protein",
+            "certificate_hash": "97c6bfd588e2ccd77fa0ed4c8241e4840e3cdae8"
+          }
+        },
+        {
+          "client_id": "1043339872162-pdgq4msrskfu856l95rq636obvboscpq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGckCB3MQ1GjAv8UrM8nXmV3erqGuFrKM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043339872162-pdgq4msrskfu856l95rq636obvboscpq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-8571844432257036~3219853575"
+    }
+  ],
+  "configuration_version": "1"
+}

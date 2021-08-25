@@ -21,8 +21,9 @@ class SingleProtein {
   final String date;
   final int number;
   final String text;
+  final String hour;
 
-  SingleProtein({this.date, this.number, this.text});
+  SingleProtein({this.date, this.number, this.text,this.hour});
 
   // Convert a Dog into a Map. The keys must correspond to the names of the
   // columns in the database.
@@ -31,6 +32,7 @@ class SingleProtein {
       'date': date,
       'number': number,
       'text': text,
+      'hour':hour
     };
   }
 }

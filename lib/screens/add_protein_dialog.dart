@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_protien_ez_controle/models/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_protien_ez_controle/models/data.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'new_screen.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class AddProteinDialog extends StatefulWidget {
+  final Function showInter;
+   AddProteinDialog({this.showInter});
   @override
   _AddProteinDialogState createState() => _AddProteinDialogState();
 }
@@ -16,19 +20,21 @@ class AddProteinDialog extends StatefulWidget {
 class _AddProteinDialogState extends State<AddProteinDialog> {
   //AdmobInterstitial interstitialAd;
   String tZone;
+
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
   RateMyApp rateMyApp = RateMyApp(
     preferencesPrefix: 'rateMyApp_',
     googlePlayIdentifier: 'com.jamal.protein',
     minDays: 2, // Show rate popup on first day of install.
-    minLaunches: 10, // Show rate popup after 5 launches of app after minDays is passed.
+    minLaunches: 5, // Show rate popup after 5 launches of app after minDays is passed.
     remindDays: 4,
-    remindLaunches: 10,
+    remindLaunches: 5,
   );
   @override
   void dispose() {
     //interstitialAd.dispose();
+    if(Provider.of<Data>(context, listen: false).isPurchased==false){widget.showInter();}
     super.dispose();
   }
 getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
@@ -36,16 +42,10 @@ getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
   void initState() {
 
     super.initState();
+    rateMyApp.init();
     tz.initializeTimeZones();
     getTimeZone();
 
-    // interstitialAd = AdmobInterstitial(
-    //   adUnitId: AdsManager.intersitialAdId,
-    //   listener: (AdmobAdEvent event, Map<String, dynamic> args) {
-    //     if (event == AdmobAdEvent.closed) interstitialAd.load();
-    //   },
-    // );
-    // interstitialAd.load();
 
     var initializationSettingsAndroid =
     AndroidInitializationSettings('ic_stat');
@@ -53,17 +53,10 @@ getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
     var initSetttings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOs);
 
-    flutterLocalNotificationsPlugin.initialize(initSetttings,
-        onSelectNotification: onSelectNotification);
+    flutterLocalNotificationsPlugin.initialize(initSetttings);
 
   }
-  Future onSelectNotification(String payload) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-      return NewScreen(
-        payload: payload,
-      );
-    }));
-  }
+
   bool addCommentVis=true;
   bool commentVis=false;
   TextEditingController controller=TextEditingController();
@@ -78,7 +71,7 @@ getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20)
       ),
-      backgroundColor: Color(0xff243c5e),
+      backgroundColor: MyColors.background,
       content: Container(
 
         child: Column(
@@ -87,11 +80,11 @@ getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
           children: [
             SizedBox(height: 10,),
             Text(
-              'Add Protein with gram',
+              'Add Protein',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontSize: 24,color: MyColors.textColor,fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 24,),
             TextField(
               autofocus: true,
               maxLength: 3,
@@ -100,20 +93,23 @@ getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
                   // Provider.of<Data>(context).proteinWillBeAdded = int.parse(v);
                   //mv=int.parse(v);
                 },
-                style: TextStyle(fontSize: 20),
-                cursorColor: Color(0xff70E1F1),
+                style: TextStyle(fontSize: 20,color: MyColors.textColor),
+                cursorColor: MyColors.accentColor,
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  hintText: 'Protein with gram',
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff70E1F1)),
+                  labelText: 'Protein with gram',
+                  labelStyle: TextStyle(color:MyColors.accentColor ),
+                  hintText: '30',
+                  counterText: '',
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyColors.accentColor),
                   ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff70E1F1)),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyColors.accentColor),
                   ),
-                  border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff70E1F1)),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyColors.accentColor),
                   ),
                 )),
             SizedBox(height: 6,),
@@ -134,7 +130,7 @@ getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
                   },
                   child: Visibility(
                       visible: addCommentVis,
-                      child: Text('Add comment',style: TextStyle(color: Color(0xff70E1F1),fontSize: 14 ),)),
+                      child: Text('Add Food Name',style: TextStyle(color: MyColors.accentColor,fontSize: 16,fontWeight: FontWeight.bold ),)),
                 ),
               ],
             ),
@@ -147,19 +143,23 @@ getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
                       text=(v);
                     },
                     style: TextStyle(fontSize: 20),
-                    cursorColor: Color(0xff70E1F1),
+                    cursorColor: MyColors.accentColor,
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.center,
+                    maxLength: 30,
                     decoration: InputDecoration(
-                      hintText: 'chicken...',
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xff70E1F1)),
+
+                      hintText: 'Chicken',
+                      labelText: 'Food name',
+                      labelStyle: TextStyle(color:MyColors.accentColor ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: MyColors.accentColor),
                       ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xff70E1F1)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: MyColors.accentColor),
                       ),
-                      border: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xff70E1F1)),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: MyColors.accentColor),
                       ),
                     )),),
             SizedBox(height: 10,),
@@ -167,25 +167,38 @@ getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                  style: TextButton.styleFrom(primary: Color(0xff70E1F1)),
+                  style: TextButton.styleFrom(primary: MyColors.accentColor),
                   onPressed: () {
+                    if(Provider.of<Data>(context, listen: false).isPurchased==false){widget.showInter();}
+                    // if(widget.interstitialAd!=null){
+                    //
+                    //   //widget.interstitialAd.show();
+                    // }
                     Navigator.pop(context);
                   },
                   child: Text('cancel'),
                 ),
                 GestureDetector(
                   onTap: ()async{
-                    // if((Provider.of<Data>(context,listen: false).nowProtein.protein)>10) {
-                    //   if (await interstitialAd.isLoaded) {
-                    //     interstitialAd.show();
-                    //   }else{
-                    //     print('No ad');
-                    //   }
-                    // }
 
-                    //showBigPictureNotification();
-                    //showNotification();
-                    if(controller.text!=null) {
+                    if(Provider.of<Data>(context, listen: false).kalanDaily>0){
+                      await scheduleNotification();
+                    }
+                    await scheduleNotification2();
+                    await scheduleNotification3();
+                    await scheduleNotification4();
+                    await showDailyAtTime();
+                    if(Provider.of<Data>(context,listen: false).protein1.protein!=0 ||Provider.of<Data>(context,listen: false).protein2.protein!=0 ||Provider.of<Data>(context,listen: false).protein3.protein !=0 ||Provider.of<Data>(context,listen: false).protein6.protein !=0 ||Provider.of<Data>(context,listen: false).protein4.protein !=0 ||Provider.of<Data>(context,listen: false).protein5.protein !=0 ||!rateMyApp.shouldOpenDialog){
+                     if(Provider.of<Data>(context,listen: false).isPurchased==false){ widget.showInter();}}
+                    if(controller.text!=null &&controller.text.isNotEmpty && int.parse(controller.text)>0) {
+                      if((Provider.of<Data>(context,listen: false).nowProtein.protein+int.parse(controller.text))>=(Provider.of<Data>(context,listen: false).proteinDaily)/2){
+                        await rateMyApp.init();
+                        if (mounted && rateMyApp.shouldOpenDialog) {
+                          print('Review us');
+                          await rateMyApp.showRateDialog(context);
+
+                        }
+                      }
                       if(text==null){
                         await Provider.of<Data>(context,listen: false).addProtein(int.parse(controller.text),'-');
                       }else {
@@ -194,45 +207,24 @@ getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
                       }
                       Navigator.pop(context);
                     }else{
-                      print(controller.text);
-                      final snackBar = SnackBar(content: Text('You forgot put a number!'));
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      showTopSnackBar(
+                        context,
+                        CustomSnackBar.error(
+                          message:
+                          "Please enter valid protein value!",
+                        ),
+                      );
                     }
-                    if(Provider.of<Data>(context, listen: false).kalanDaily>0){
-                      await scheduleNotification();
-                    }
-                    await showDailyAtTime();
-
-                    if((Provider.of<Data>(context,listen: false).nowProtein.protein+int.parse(controller.text))>=(Provider.of<Data>(context,listen: false).proteinDaily)/2){
-                      await rateMyApp.init();
-                      if (mounted && rateMyApp.shouldOpenDialog) {
-                        print('Review us');
-                        rateMyApp.showRateDialog(context);
-                      }
-                    }
-
 
 
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 18,vertical: 10),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Color(0xff70E1F1),),
-                    child: Text('Add',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600,color: Color(0xff223D5D)),),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: MyColors.accentColor,),
+                    child: Text('Add',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.black87),),
                   ),
                 ),
-                // ElevatedButton(
-                //   style: ElevatedButton.styleFrom(primary: Color(0xfff27095)),
-                //   onPressed: () {
-                //     if(mv!=null) {
-                //       Provider.of<Data>(context,listen: false).addProtein(mv);
-                //       Navigator.pop(context);
-                //     }else{
-                //       final snackBar = SnackBar(content: Text('You forgot put a number!'));
-                //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                //     }
-                //   },
-                //   child: Text('Add'),
-                // ),
+
               ],
             )
           ],
@@ -240,23 +232,37 @@ getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
       ),
     );
   }
-  // showNotification() async {
-  //   var android = AndroidNotificationDetails(
-  //       'id', 'channel ', 'description',
-  //       priority: Priority.High, importance: Importance.Max);
-  //   var iOS = IOSNotificationDetails();
-  //   var platform = new NotificationDetails(android, iOS);
-  //   await flutterLocalNotificationsPlugin.show(
-  //       0, 'Flutter devs', 'Flutter Local Notification Demo', platform,
-  //       payload: 'Welcome to the Local Notification demo'
-  //   );
-  // }
+
   Future<void> scheduleNotification() async {
 
     // var scheduledNotificationDateTime =
     // DateTime.now().add(Duration(seconds: 3));
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'channel id',
+      'channel id 21',
+      'channel name',
+      'channel description',
+      icon: 'ic_stat',
+      largeIcon: DrawableResourceAndroidBitmap('ic_stat'),
+    );
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    tz.setLocalLocation(tz.getLocation(tZone));
+    bool isLateTime=(tz.TZDateTime.now(tz.local).add(const Duration(hours: 3)).day)==(tz.TZDateTime.now(tz.local).add(Duration(days: 1)).day);
+    var platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        21,
+        'Protein Reminder',
+        isLateTime?'Lets start new day Progress!':'Take protein to get your goal, ${Provider.of<Data>(context,listen: false).kalanDaily}g remaining',
+        isLateTime? tz.TZDateTime.now(tz.local).add(const Duration(hours: 12)):tz.TZDateTime.now(tz.local).add(const Duration(hours: 3)) ,
+        // scheduledNotificationDateTime,
+        platformChannelSpecifics, androidAllowWhileIdle: true, uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime);
+  }
+  Future<void> scheduleNotification2() async {
+
+    // var scheduledNotificationDateTime =
+    // DateTime.now().add(Duration(seconds: 3));
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'channel id 22',
       'channel name',
       'channel description',
       icon: 'ic_stat',
@@ -267,31 +273,61 @@ getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
     var platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.zonedSchedule(
-        0,
-        'Protein Reminder',
-        'Take protein to get your goal, ${Provider.of<Data>(context,listen: false).kalanDaily}g remaining',
-        tz.TZDateTime.now(tz.local).add(const Duration(hours: 3)),
+        22,
+        'Don\'t give up!',
+        'That was 1 day without tracking your protein! don\'t give up!',
+         tz.TZDateTime.now(tz.local).add(const Duration(days: 1)) ,
+        // scheduledNotificationDateTime,
+        platformChannelSpecifics, androidAllowWhileIdle: true, uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime);
+  }
+  Future<void> scheduleNotification3() async {
+
+    // var scheduledNotificationDateTime =
+    // DateTime.now().add(Duration(seconds: 3));
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'channel id 33',
+      'channel name',
+      'channel description',
+      icon: 'ic_stat',
+      largeIcon: DrawableResourceAndroidBitmap('ic_stat'),
+    );
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    tz.setLocalLocation(tz.getLocation(tZone));
+    var platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        33,
+        'Never give up!',
+        'That was 2 day without tracking your protein! don\'t give up!',
+        tz.TZDateTime.now(tz.local).add(const Duration(days: 2)) ,
+        // scheduledNotificationDateTime,
+        platformChannelSpecifics, androidAllowWhileIdle: true, uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime);
+  }
+  Future<void> scheduleNotification4() async {
+
+    // var scheduledNotificationDateTime =
+    // DateTime.now().add(Duration(seconds: 3));
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'channel id 44',
+      'channel name',
+      'channel description',
+      icon: 'ic_stat',
+      largeIcon: DrawableResourceAndroidBitmap('ic_stat'),
+    );
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    tz.setLocalLocation(tz.getLocation(tZone));
+    var platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        44,
+        'That Was 3 Days!',
+        'That was 3 day without tracking your protein! did you give up?',
+        tz.TZDateTime.now(tz.local).add(const Duration(days: 3)) ,
         // scheduledNotificationDateTime,
         platformChannelSpecifics, androidAllowWhileIdle: true, uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime);
   }
   Future<void> showDailyAtTime() async {
-    //var time = Time(12, 0, 0);
 
-    // var androidChannelSpecifics = AndroidNotificationDetails(
-    //   'repeating channel id',
-    //   'repeating channel name212',
-    //   'repeating description',
-    //   //importance: Importance.Max,
-    //   //priority: Priority.High,
-    //   //playSound: true,
-    //   //timeoutAfter: 5000,
-    //   //enableLights: true,
-    //   icon: 'ic_stat',
-    //   largeIcon: DrawableResourceAndroidBitmap('ic_stat'),
-    // );
-    // var iosChannelSpecifics = IOSNotificationDetails();
-    // var platformChannelSpecifics =
-    // NotificationDetails(android: androidChannelSpecifics, iOS: iosChannelSpecifics);
     await flutterLocalNotificationsPlugin.zonedSchedule(99,
         'Daily Reminder', 'Good morning! ,'
             'Don\'t forget to Take Protein',
@@ -306,18 +342,7 @@ getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.time);
-    // await flutterLocalNotificationsPlugin.periodicallyShow(0, 'Don\'t miss your target',
-    //     'Reach your goal, you have ${Provider.of<Data>(context).kalanDaily}g protein to get', RepeatInterval.daily, platformChannelSpecifics,
-    //     androidAllowWhileIdle: true);
-    // await flutterLocalNotificationsPlugin.showDailyAtTime(
-    //   0,
-    //   'Don\'t miss your target',
-    //   'Reach your goal', //null
-    //   time,
-    //   platformChannelSpecifics,
-    //   payload: 'New Payload'
-    //
-    // );
+
   }
   tz.TZDateTime _nextInstanceOfTenAM() {
     if(tZone!=null) {
@@ -332,22 +357,5 @@ getTimeZone()async{  tZone = await FlutterNativeTimezone.getLocalTimezone();}
     }
     return scheduledDate;
   }
-  // Future<void> showBigPictureNotification() async {
-  //   var bigPictureStyleInformation = BigPictureStyleInformation(
-  //     DrawableResourceAndroidBitmap("ic_launcher"),
-  //     largeIcon: DrawableResourceAndroidBitmap("ic_launcher"),
-  //     contentTitle: 'flutter devs',
-  //     summaryText: 'summaryText',
-  //   );
-  //   var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-  //       'big text channel id',
-  //       'big text channel name',
-  //       'big text channel description',
-  //       styleInformation: bigPictureStyleInformation);
-  //   var platformChannelSpecifics =
-  //   NotificationDetails(androidPlatformChannelSpecifics, null);
-  //   await flutterLocalNotificationsPlugin.show(
-  //       0, 'big text title', 'silent body', platformChannelSpecifics,
-  //       payload: "big image notifications");
-  // }
+
 }

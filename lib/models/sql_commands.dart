@@ -46,9 +46,9 @@ class MakeCommand{
       // constructed for each platform.
       join(await getDatabasesPath(), 'proteins.db'),
       onCreate: (db, version) {
-
+        
         return db.execute(
-          "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-')",
+          "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-', hour TEXT)",
         );
       },
       version: 0,
@@ -56,12 +56,14 @@ class MakeCommand{
     final Database db = await database;
     try {
       db.execute(
-        "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-')",
+        "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-', hour TEXT)",
       );
+      await db.execute('ALTER TABLE single_protein ADD hour');
     }catch(e){
       print('e');
     }
-
+    //
+    print(' Hour is ${singleProtein.toMap()}');
     await db.insert(
       'single_protein',
       singleProtein.toMap(),
@@ -70,6 +72,50 @@ class MakeCommand{
     DateTime dateTime=DateTime.now();
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formatted = formatter.format(dateTime);
+
+    await db.delete(
+        'single_protein',
+        where: 'date < ?',
+        whereArgs: [formatted]
+    );
+  }
+  static Future<void> updateSingleProtein(SingleProtein singleProtein) async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final Future<Database> database = openDatabase(
+      // Set the path to the database. Note: Using the `join` function from the
+      // `path` package is best practice to ensure the path is correctly
+      // constructed for each platform.
+      join(await getDatabasesPath(), 'proteins.db'),
+      onCreate: (db, version) {
+
+        return db.execute(
+          "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-', hour TEXT)",
+        );
+      },
+      version: 0,
+    );
+    final Database db = await database;
+    try {
+      db.execute(
+        "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-', hour TEXT)",
+      );
+      await db.execute('ALTER TABLE single_protein ADD hour');
+    }catch(e){
+      print('e');
+    }
+    //
+    print(' Hour is ${singleProtein.toMap()}');
+    await db.update(
+      'single_protein',
+      singleProtein.toMap(),
+      where: 'hour==?',
+      whereArgs: [singleProtein.hour],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    DateTime dateTime=DateTime.now();
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final String formatted = formatter.format(dateTime);
+
     await db.delete(
         'single_protein',
         where: 'date < ?',
@@ -86,7 +132,7 @@ class MakeCommand{
       onCreate: (db, version) {
 
         return db.execute(
-          "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-')",
+          "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-', hour TEXT)",
         );
       },
       version: 0,
@@ -95,7 +141,7 @@ class MakeCommand{
     final db = await database;
     try {
       db.execute(
-        "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-')",
+        "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-', hour TEXT)",
       );
     }catch(e){
       print('e');
@@ -111,12 +157,79 @@ class MakeCommand{
 
     // Convert the List<Map<String, dynamic> into a List<Dog>.
     return List.generate(maps.length, (i) {
+      print('${maps[i]['hour']}');
       return SingleProtein(
         date: maps[i]['date'],
         number: maps[i]['number'],
         text: maps[i]['text'],
+        hour: maps[i]['hour']
       );
     });
+  }
+  static Future<int> countSingeProteins() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final Future<Database> database = openDatabase(
+      // Set the path to the database. Note: Using the `join` function from the
+      // `path` package is best practice to ensure the path is correctly
+      // constructed for each platform.
+      join(await getDatabasesPath(), 'proteins.db'),
+      onCreate: (db, version) {
+
+        return db.execute(
+          "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-', hour TEXT)",
+        );
+      },
+      version: 0,
+    );
+    // Get a reference to the database.
+    final db = await database;
+    try {
+      db.execute(
+        "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-', hour TEXT)",
+      );
+    }catch(e){
+      print('e');
+    }
+
+    // Query the table for all The Dogs.
+
+    final int sum = Sqflite.firstIntValue(await db.rawQuery('SELECT SUM(number) FROM single_protein'));
+
+
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return sum;
+  }
+  static deleteSingleProtein(String text,int number,String hour) async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final Future<Database> database = openDatabase(
+      // Set the path to the database. Note: Using the `join` function from the
+      // `path` package is best practice to ensure the path is correctly
+      // constructed for each platform.
+      join(await getDatabasesPath(), 'proteins.db'),
+      onCreate: (db, version) {
+
+        return db.execute(
+          "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-', hour TEXT)",
+        );
+      },
+      version: 0,
+    );
+    // Get a reference to the database.
+    final db = await database;
+    try {
+      db.execute(
+        "CREATE TABLE IF NOT EXISTS single_protein(date TEXT , number INTEGER,  text TEXT DEFAULT '-', hour TEXT)",
+      );
+    }catch(e){
+      print('e');
+    }
+
+    // Query the table for all The Dogs.
+
+    await db.delete('single_protein',where: 'text == ? AND number == ? AND hour == ?',whereArgs: [text,number,hour]);
+
+
   }
 
   static Future<void> deleteProteins(DateTime dateTime) async {
@@ -187,7 +300,11 @@ class MakeCommand{
           protein: maps[0]['protein'],
           isDone: maps[0]['done']
       );
-      return pro;
+      if(pro!=null && pro.protein!=null) {
+        return pro;
+      }else{
+        return Protein(protein: 0,weight: prefs.getInt('weight'),isDone: 0,date: formatted);
+      }
     }catch(e){
       print(e);
       return Protein(protein: 0,weight: prefs.getInt('weight'),isDone: 0,date: formatted);
