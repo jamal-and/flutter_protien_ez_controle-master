@@ -21,7 +21,7 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
   }
   double _height=40;
   double _width=300;
-  double _updateState(){
+  void _updateState(){
     setState(() {
       _width=MediaQuery.of(context).size.width*0.9;
       _height=null;
@@ -53,7 +53,7 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 16,),
+                //SizedBox(height: 16,),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   decoration: BoxDecoration(
@@ -75,20 +75,21 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
                       fontSize: 32,
                       fontWeight: FontWeight.bold),
                 ),
+
                 SizedBox(height: 24,),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   textBaseline: TextBaseline.alphabetic,
                   children: [
                     Text(
-                      '\$0.',
+                      Provider.of<Data>(context,listen: false).hasFreeTrial?'FREE TRIAL':'${Provider.of<Data>(context,listen: false).products[0].price}',
                       style: TextStyle(
                           color: MyColors.textColor,
                           fontSize: 48,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      '99',
+                      Provider.of<Data>(context,listen: false).hasFreeTrial?'':'',
                       style: TextStyle(
                           color: MyColors.textColor,
                           fontSize: 24,
@@ -103,13 +104,14 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
                       color: MyColors.textColor.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(8)),
                   child: Text(
-                    '7 days FREE TRIAL',
+                    Provider.of<Data>(context,listen: false).hasFreeTrial?'7 days free trial then ${Provider.of<Data>(context,listen: false).products[0].price} /month':'7 days free trial used',
                     style: TextStyle(
                         color: MyColors.textColor,
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
+
               ],
             ),
           ),
@@ -131,9 +133,10 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 24,),
-                  Text('Complete features\nthat you will get',style: TextStyle(color: MyColors.textColor.withOpacity(0.9),fontSize: 18,fontWeight: FontWeight.bold),),
+                  Text('Complete features that you will get',style: TextStyle(color: MyColors.textColor.withOpacity(0.9),fontSize: 18,fontWeight: FontWeight.bold),),
                   SizedBox(height: 24,),
-                  FeatureItem(icon: Icons.star,title: 'Use Every Features',subTitle: 'Make your life easier.',),
+                  FeatureItem(icon: Icons.star,title: 'Better Performance',subTitle: 'This will make your app run faster',),
+                  FeatureItem(icon: Icons.restaurant_outlined,title: 'Meal List',subTitle: 'Add Protein Fast From Meal List',),
                   FeatureItem(icon: Icons.reply_outlined,title: 'Add Protein For Previous Days',subTitle: 'Don\'t miss your progress.',),
                   FeatureItem(icon: Icons.dashboard_customize_outlined,title: 'Edit Your Meals',subTitle: 'Save your time.',),
                   FeatureItem(icon: Icons.block,title: 'No Ads',subTitle: 'Don\'nt waste your time with ads.',),
@@ -150,17 +153,17 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
                         color: MyColors.accentColor,
                         borderRadius: BorderRadius.circular(50)
                       ),
-                      child: Center(child: Text(Provider.of<Data>(context,listen: false).hasFreeTrial?'Start For Free!':Provider.of<Data>(context,listen: false).isPurchased?'Already Premium!':'Upgrade Premium',style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: MyColors.textColor),)),
+                      child: Center(child: Text(Provider.of<Data>(context,listen: false).hasFreeTrial?'START FOR FREE':Provider.of<Data>(context,listen: false).isPurchased?'Already Premium!':'Upgrade Premium',style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: MyColors.textColor),)),
                     ),
                   ),
-                  SizedBox(height: 24,),
+                  SizedBox(height: 16,),
                   GestureDetector(
                     onTap: (){Navigator.pop(context);},
                     child: Center(
-                     child: Text('No Thanks',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: MyColors.textColor)
+                     child: Text('cancel any time from Google Play subscriptions',textAlign: TextAlign.center,style: TextStyle(fontSize: 12,color: MyColors.textColor.withOpacity(0.9))
                     )),
                   ),
-                  SizedBox(height: 24,),
+                  SizedBox(height: 16,),
                 ],
               ),
             ),

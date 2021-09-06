@@ -320,4 +320,155 @@ class MakeCommand{
     //   );
     // });
   }
+
+
+
+
+
+
+
+
+
+  static Future<void> addMeal(Meal meal) async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final Future<Database> database = openDatabase(
+      // Set the path to the database. Note: Using the `join` function from the
+      // `path` package is best practice to ensure the path is correctly
+      // constructed for each platform.
+      join(await getDatabasesPath(), 'proteins.db'),
+      onCreate: (db, version) {
+
+        return db.execute(
+          "CREATE TABLE IF NOT EXISTS meals(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT , protein INTEGER,  description TEXT DEFAULT 'no description', color TEXT)",
+        );
+      },
+      version: 0,
+    );
+    final Database db = await database;
+    try {
+      db.execute(
+        "CREATE TABLE IF NOT EXISTS meals(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT , protein INTEGER,  description TEXT DEFAULT 'no description', color TEXT)",
+      );
+    }catch(e){
+      print('e');
+    }
+    //
+    //print(' Hour is ${meal.toMap()}');
+    await db.insert(
+      'meals',
+      meal.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+
+  }
+
+
+  static Future<void> updateMeal(Meal meal) async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final Future<Database> database = openDatabase(
+      // Set the path to the database. Note: Using the `join` function from the
+      // `path` package is best practice to ensure the path is correctly
+      // constructed for each platform.
+      join(await getDatabasesPath(), 'proteins.db'),
+      onCreate: (db, version) {
+
+        return db.execute(
+          "CREATE TABLE IF NOT EXISTS meals(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT , protein INTEGER,  description TEXT DEFAULT 'no description', color TEXT)",
+        );
+      },
+      version: 0,
+    );
+    final Database db = await database;
+    try {
+      db.execute(
+        "CREATE TABLE IF NOT EXISTS meals(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT , protein INTEGER,  description TEXT DEFAULT 'no description', color TEXT)",
+      );
+    }catch(e){
+      print('e');
+    }
+    //
+    //print(' Hour is ${meal.toMap()}');
+    await db.update(
+      'meals',
+      meal.toMap(),
+      where: 'id==?',
+      whereArgs: [meal.id],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+
+  }
+
+
+  static Future<void> deleteMeal(Meal meal) async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final Future<Database> database = openDatabase(
+      // Set the path to the database. Note: Using the `join` function from the
+      // `path` package is best practice to ensure the path is correctly
+      // constructed for each platform.
+      join(await getDatabasesPath(), 'proteins.db'),
+      onCreate: (db, version) {
+
+        return db.execute(
+          "CREATE TABLE IF NOT EXISTS meals(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT , protein INTEGER,  description TEXT DEFAULT 'no description', color TEXT)",
+        );
+      },
+      version: 0,
+    );
+    final Database db = await database;
+    try {
+      db.execute(
+        "CREATE TABLE IF NOT EXISTS meals(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT , protein INTEGER,  description TEXT DEFAULT 'no description', color TEXT)",
+      );
+    }catch(e){
+      print('e');
+    }
+    //
+    //print(' Hour is ${meal.toMap()}');
+    await db.delete(
+      'meals',
+      where: 'id==?',
+      whereArgs: [meal.id],
+    );
+
+  }
+
+  static Future<List<Meal>> getMeals() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final Future<Database> database = openDatabase(
+      // Set the path to the database. Note: Using the `join` function from the
+      // `path` package is best practice to ensure the path is correctly
+      // constructed for each platform.
+      join(await getDatabasesPath(), 'proteins.db'),
+      onCreate: (db, version) {
+
+        return db.execute(
+          "CREATE TABLE IF NOT EXISTS meals(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT , protein INTEGER,  description TEXT DEFAULT 'no description', color TEXT)",
+        );
+      },
+      version: 0,
+    );
+    final Database db = await database;
+    try {
+      db.execute(
+        "CREATE TABLE IF NOT EXISTS meals(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT , protein INTEGER,  description TEXT DEFAULT 'no description', color TEXT)",
+      );
+    }catch(e){
+      print('e');
+    }
+    //
+    //print(' Hour is ${meal.toMap()}');
+    final List<Map<String, dynamic>> maps =await db.query(
+      'meals',
+    );
+    return List.generate(maps.length, (i) {
+      return Meal(
+          id: maps[i]['id'],
+          name: maps[i]['name'],
+          protein: maps[i]['protein'],
+          description: maps[i]['description'],
+          color: maps[i]['color']
+      );
+    });
+
+  }
 }

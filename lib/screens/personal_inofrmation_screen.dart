@@ -1,12 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_protien_ez_controle/models/ads_manager.dart';
 import 'package:flutter_protien_ez_controle/models/colors.dart';
 import 'package:flutter_protien_ez_controle/models/data.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
-  const PersonalInformationScreen({Key key}) : super(key: key);
+  const PersonalInformationScreen({Key key,}) : super(key: key);
   static String id='personal_information';
+
 
   @override
   _PersonalInformationScreenState createState() => _PersonalInformationScreenState();
@@ -14,18 +18,28 @@ class PersonalInformationScreen extends StatefulWidget {
 
 class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   TextEditingController nameController=TextEditingController();
+  TextEditingController emailController=TextEditingController();
   TextEditingController weightController=TextEditingController();
   TextEditingController goalController;
+
   final key=GlobalKey<FormState>();
   bool kg=false;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+    super.dispose();
+  }
   @override
   void initState() {
     // TODO: implement initState
 
     super.initState();
+
     var provider=Provider.of<Data>(context,listen: false);
     getPrefs(context);
     nameController=TextEditingController(text: provider.userName);
+    emailController=TextEditingController(text: provider.email);
     weightController=TextEditingController(text: provider.weight.toString());
     goalController=TextEditingController(text: provider.proteinDaily.toString());
   }
@@ -61,6 +75,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
                 Container(
                   margin: EdgeInsets.only(left: 16,top: 16),
                   width: width*0.6,
@@ -97,6 +112,43 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     ),
                   ),
                 ),
+                Container(
+                  margin: EdgeInsets.only(left: 16,top: 16),
+                  width: width*0.8,
+                  child: TextFormField(
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(color: MyColors.textColor),
+                    validator: (value) {
+                      if (value == null || value.isEmpty ||!value.contains('@')||!value.contains('.')) {
+                        return 'Please enter valid email';
+                      }
+                      return null;
+                    },
+                    maxLength: 40,
+                    cursorColor: MyColors.accentColor,
+                    controller: emailController,
+                    decoration: InputDecoration(
+                        focusColor: MyColors.accentColor,
+                        fillColor: MyColors.accentColor,
+                        hoverColor: MyColors.accentColor,
+                        labelStyle: TextStyle(color:MyColors.accentColor ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: MyColors.accentColor),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: MyColors.accentColor),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: MyColors.accentColor),
+                        ),
+                        icon: Icon(Icons.email_outlined,color: MyColors.accentColor,),
+
+                        labelText: 'Email',
+                        counterText: '',
+                        hintText: 'Enter your email'
+                    ),
+                  ),
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   textBaseline: TextBaseline.alphabetic,
@@ -116,7 +168,12 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         maxLength: 5,
                         cursorColor: MyColors.accentColor,
                         controller: weightController,
-
+                        onChanged: (s){
+                          if(kg){
+                            goalController.text='${(int.parse(weightController.text)*2.1).toInt()}';
+                          }else{
+                            goalController.text='${int.parse(weightController.text)}';}
+                        },
                         decoration: InputDecoration(
                             labelStyle: TextStyle(color:MyColors.accentColor ),
                             enabledBorder: OutlineInputBorder(
@@ -158,6 +215,10 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                                     kg = false;
                                   });
                                 }
+                                if(kg){
+                                  goalController.text='${(int.parse(weightController.text)*2.1).toInt()}';
+                                }else{
+                                  goalController.text='${int.parse(weightController.text)}';}
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(vertical: 8,horizontal: 0),
@@ -184,6 +245,10 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                                     kg = true;
                                   });
                                 }
+                                if(kg){
+                                  goalController.text='${(int.parse(weightController.text)*2.1).toInt()}';
+                                }else{
+                                  goalController.text='${int.parse(weightController.text)}';}
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(vertical: 8,horizontal: 0),
@@ -261,14 +326,10 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                   child: GestureDetector(
                     onTap: (){
                       if (key.currentState.validate()) {
-                        // If the form is valid, display a snackbar. In the real world,
-                        // you'd often call a server or save the information in a database.
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   const SnackBar(content: Text('Processing Data')),
-                        // );
                         provider.setName(nameController.text);
                         provider.setGoal(int.parse(goalController.text));
                         provider.editWeight(int.parse(weightController.text));
+                        provider.setEmail(emailController.text);
 
                         Navigator.pop(context);
                       }

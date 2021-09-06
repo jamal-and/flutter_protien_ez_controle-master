@@ -28,13 +28,13 @@ class AnotherNativeAdFactoryExample2 implements NativeAdFactory {
 
         // Set other ad assets.
         adView.setHeadlineView(adView.findViewById(R.id.ad_headline));
-        //adView.setBodyView(adView.findViewById(R.id.ad_body));
+        adView.setBodyView(adView.findViewById(R.id.ad_body));
         adView.setCallToActionView(adView.findViewById(R.id.ad_call_to_action));
         adView.setIconView(adView.findViewById(R.id.ad_app_icon));
         adView.setPriceView(adView.findViewById(R.id.ad_price));
         adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
         adView.setStoreView(adView.findViewById(R.id.ad_store));
-        adView.setAdvertiserView(adView.findViewById(R.id.ad_advertiser));
+        //adView.setAdvertiserView(adView.findViewById(R.id.ad_advertiser));
 
         // The headline and mediaContent are guaranteed to be in every NativeAd.
         ((TextView) adView.getHeadlineView()).setText(nativeAd.getHeadline());
@@ -42,12 +42,12 @@ class AnotherNativeAdFactoryExample2 implements NativeAdFactory {
 
         // These assets aren't guaranteed to be in every NativeAd, so it's important to
         // check before trying to display them.
-//        if (nativeAd.getBody() == null) {
-//            adView.getBodyView().setVisibility(View.INVISIBLE);
-//        } else {
-//            adView.getBodyView().setVisibility(View.VISIBLE);
-//            ((TextView) adView.getBodyView()).setText(nativeAd.getBody());
-//        }
+        if (nativeAd.getBody() == null) {
+            adView.getBodyView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getBodyView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getBodyView()).setText(nativeAd.getBody());
+        }
 
         if (nativeAd.getCallToAction() == null) {
             adView.getCallToActionView().setVisibility(View.INVISIBLE);
@@ -84,12 +84,12 @@ class AnotherNativeAdFactoryExample2 implements NativeAdFactory {
             adView.getStarRatingView().setVisibility(View.VISIBLE);
         }
 
-        if (nativeAd.getAdvertiser() == null) {
-            adView.getAdvertiserView().setVisibility(View.INVISIBLE);
-        } else {
-            adView.getAdvertiserView().setVisibility(View.VISIBLE);
-            ((TextView) adView.getAdvertiserView()).setText(nativeAd.getAdvertiser());
-        }
+//        if (nativeAd.getAdvertiser() == null) {
+//            adView.getAdvertiserView().setVisibility(View.INVISIBLE);
+//        } else {
+//            adView.getAdvertiserView().setVisibility(View.VISIBLE);
+//            ((TextView) adView.getAdvertiserView()).setText(nativeAd.getAdvertiser());
+//        }
 
         // This method tells the Google Mobile Ads SDK that you have finished populating your
         // native ad view with this native ad.

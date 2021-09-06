@@ -34,7 +34,7 @@ class AnotherNativeAdFactoryExample implements NativeAdFactory {
         adView.setPriceView(adView.findViewById(R.id.ad_price));
         adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
         adView.setStoreView(adView.findViewById(R.id.ad_store));
-        adView.setAdvertiserView(adView.findViewById(R.id.ad_advertiser));
+        //adView.setAdvertiserView(adView.findViewById(R.id.ad_advertiser));
 
         // The headline and mediaContent are guaranteed to be in every NativeAd.
         ((TextView) adView.getHeadlineView()).setText(nativeAd.getHeadline());
@@ -84,12 +84,12 @@ class AnotherNativeAdFactoryExample implements NativeAdFactory {
             adView.getStarRatingView().setVisibility(View.VISIBLE);
         }
 
-        if (nativeAd.getAdvertiser() == null) {
-            adView.getAdvertiserView().setVisibility(View.INVISIBLE);
-        } else {
-            adView.getAdvertiserView().setVisibility(View.VISIBLE);
-            ((TextView) adView.getAdvertiserView()).setText(nativeAd.getAdvertiser());
-        }
+//        if (nativeAd.getAdvertiser() == null) {
+//            adView.getAdvertiserView().setVisibility(View.INVISIBLE);
+//        } else {
+//            adView.getAdvertiserView().setVisibility(View.VISIBLE);
+//            ((TextView) adView.getAdvertiserView()).setText(nativeAd.getAdvertiser());
+//        }
 
         // This method tells the Google Mobile Ads SDK that you have finished populating your
         // native ad view with this native ad.

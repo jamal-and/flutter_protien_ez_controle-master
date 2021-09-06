@@ -1,13 +1,14 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
+//import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_protien_ez_controle/screens/add_protein_date.dart';
+import 'package:flutter_protien_ez_controle/screens/meals_screen.dart';
 import 'package:flutter_protien_ez_controle/screens/premium_screen.dart';
 import 'package:flutter_protien_ez_controle/screens/setting_screen.dart';
 import 'package:flutter_protien_ez_controle/screens/update_meal_dialog.dart';
-import 'package:rating_dialog/rating_dialog.dart';
+//import 'package:rating_dialog/rating_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_protien_ez_controle/models/ads_manager.dart';
 import 'package:flutter_protien_ez_controle/models/data.dart';
@@ -15,7 +16,7 @@ import 'package:flutter_protien_ez_controle/models/data_for_sql.dart';
 import 'package:flutter_protien_ez_controle/screens/set_name_dialog.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
-import 'package:rate_my_app/rate_my_app.dart';
+//import 'package:rate_my_app/rate_my_app.dart';
 import 'add_protein_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'edit_weight_dialog.dart';
@@ -23,14 +24,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'set_goal_dialog.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
+// import 'package:mailer/mailer.dart';
+// import 'package:mailer/smtp_server.dart';
+// import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+// import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:new_version/new_version.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter_protien_ez_controle/models/colors.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+
 
 class MainScreen extends StatefulWidget {
   static String id = 'main_screen';
@@ -43,17 +46,18 @@ class _MainScreenState extends State<MainScreen> {
   NativeAd myNative;
   NativeAd myNative2;
   NativeAd myNative3;
-  int maxFailedLoadAttempts = 9000;
+  int maxFailedLoadAttempts = 20;
   RewardedAd myRewarded;
   int currentIndex = 0;
   String preference = 'kg!';
   SharedPreferences prefs;
   InterstitialAd myInterstitialAd;
-  BannerAd myBanner;
-  int _numRewardedLoadAttempts = 0;
-  BannerAd myProfileBanner;
-  bool isBannerReady = false;
   bool isProfileBannerReady = false;
+  BannerAd myProfileBanner;
+  int _numRewardedLoadAttempts = 0;
+
+
+
   bool isIntLoaded = false;
   bool isNativeReady = false;
   bool isNativeReady2 = false;
@@ -188,41 +192,9 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     _createRewardedAd();
     loadAd();
-
-    // InterstitialAd.load(
-    //     adUnitId: AdsManager.intersitialAdId,
-    //     request: AdRequest(),
-    //     adLoadCallback:
-    //         InterstitialAdLoadCallback(onAdLoaded: (InterstitialAd ad) {
-    //       setState(() {
-    //         myInterstitialAd = ad;
-    //       });
-    //     }, onAdFailedToLoad: (LoadAdError error) {
-    //       print('ad Loading Error $error');
-    //     }));
-
-    myBanner = BannerAd(
-      adUnitId: AdsManager.bannerId,
-      size: AdSize.fullBanner,
-      request: AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (x) {
-          print('banner Loaded $x');
-          setState(() {
-            isBannerReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
-          isBannerReady = false;
-          ad.dispose();
-        },
-      ),
-    );
-
     myProfileBanner = BannerAd(
       adUnitId: AdsManager.profileBannerId,
-      size: AdSize.fullBanner,
+      size: AdSize.banner,
       request: AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (x) {
@@ -238,6 +210,22 @@ class _MainScreenState extends State<MainScreen> {
         },
       ),
     );
+
+    // InterstitialAd.load(
+    //     adUnitId: AdsManager.intersitialAdId,
+    //     request: AdRequest(),
+    //     adLoadCallback:
+    //         InterstitialAdLoadCallback(onAdLoaded: (InterstitialAd ad) {
+    //       setState(() {
+    //         myInterstitialAd = ad;
+    //       });
+    //     }, onAdFailedToLoad: (LoadAdError error) {
+    //       print('ad Loading Error $error');
+    //     }));
+
+
+
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       loadAds();
     });
@@ -335,14 +323,13 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
     if (Provider.of<Data>(context, listen: false).isPurchased == false) {
-      myNative3.load();
+      //myNative3.load();
       myProfileBanner.load();
-      myNative2.load();
-      myNative.load();
-      myBanner.load();
+      //myNative2.load();
+      //myNative.load();
+
 
     }
-
   }
 
   advancedStatusCheck(NewVersion newVersion) async {
@@ -368,9 +355,8 @@ class _MainScreenState extends State<MainScreen> {
     myNative3.dispose();
     myNative2.dispose();
     myRewarded.dispose();
-    myInterstitialAd.dispose();
-    myBanner.dispose();
     myProfileBanner.dispose();
+    myInterstitialAd.dispose();
     super.dispose();
   }
 
@@ -427,6 +413,12 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
         appBar: AppBar(
+          actions: [if(!myProvider.isPurchased)TextButton(
+              onPressed: () {Navigator.pushNamed(context, PremiumScreen.id);},
+              child: Text(
+                myProvider.hasFreeTrial?'Free Trial Premium':'Upgrade Premium',
+                style: TextStyle(color: MyColors.accentColor,fontWeight: FontWeight.bold),
+              ))],
           title: Row(
             children: [
               Text(
@@ -445,12 +437,7 @@ class _MainScreenState extends State<MainScreen> {
                         color: MyColors.textColor)),
               ),
               Spacer(),
-              if(!myProvider.isPurchased)TextButton(
-                  onPressed: () {Navigator.pushNamed(context, PremiumScreen.id);},
-                  child: Text(
-                    myProvider.hasFreeTrial?'Free Premium':'Go Premium',
-                    style: TextStyle(color: MyColors.accentColor,fontWeight: FontWeight.bold),
-                  ))
+
             ],
           ),
           backgroundColor: Colors.transparent,
@@ -473,28 +460,26 @@ class _MainScreenState extends State<MainScreen> {
               height: height,
               width: width,
               pageController: pageController,
-              isBannerReady: isBannerReady,
-              myBanner: myBanner,
               show: showInterstitialAd,
               rewardedAd: _showRewardedAd,
             ),
             StatisticsScreen(
               myProvider: myProvider,
-              isBannerReady: isProfileBannerReady,
-              myBanner: myProfileBanner,
-              nativeAd: myNative2,
-              isNativeReady: isNativeReady2,
+              //isBannerReady: isProfileBannerReady,
+              //myBanner: myProfileBanner,
+              //nativeAd: myNative2,
+              //isNativeReady: isNativeReady2,
               width: width,
               pos: pos,
               showRewardedAd: _showRewardedAd,
             ),
             ProfileScreen(
               myProvider: myProvider,
-              nativeAd: myNative3,
-              isNativeReady: isNativeReady3,
+             // nativeAd: myNative3,
+              bannerAd: myProfileBanner,
+             ispr: isProfileBannerReady,
+             // isNativeReady: isNativeReady3,
               myInterstitialAd: myInterstitialAd,
-              isProfileBannerReady: isProfileBannerReady,
-              myProfileBanner: myProfileBanner,
               show: showInterstitialAd,
               preference: preference,
             ),
@@ -514,8 +499,6 @@ class Dashboard extends StatefulWidget {
       @required this.myProvider,
       @required this.height,
       @required this.width,
-      @required this.isBannerReady,
-      @required this.myBanner,
       @required this.isNativeReady,
       @required this.nativeAd,
       @required this.pageController,
@@ -526,8 +509,6 @@ class Dashboard extends StatefulWidget {
   final Data myProvider;
   final double height;
   final double width;
-  final bool isBannerReady;
-  final BannerAd myBanner;
   final bool isNativeReady;
   final NativeAd nativeAd;
   final Function show;
@@ -540,28 +521,93 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   List<SingleProtein> items;
-
+  BannerAd myBanner;
+  bool isBannerReady = false;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    myBanner.dispose();super.dispose();
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    myBanner = BannerAd(
+      adUnitId: AdsManager.bannerId,
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (x) {
+          print('banner Loaded $x');
+          setState(() {
+            isBannerReady = true;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          print('Failed to load a banner ad: ${err.message}');
+          isBannerReady = false;
+          ad.dispose();
+        },
+      ),
+    );
+    myBanner.load();
+  }
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) => AddProteinDialog(
-                    showInter: widget.show,
-                  ));
-        },
-        backgroundColor: MyColors.accentColor.withOpacity(0.85),
-        child: Icon(
-          Icons.add,
-          color: MyColors.textColor,
-          size: 40,
-        ),
-      ),
+      floatingActionButton:
+          SpeedDial(
+            backgroundColor: MyColors.accentColor,
+            icon: Icons.add,
+            activeBackgroundColor: MyColors.background,
+            activeIcon: Icons.close,
+            foregroundColor: MyColors.textColor,
+            children: [
+              SpeedDialChild(
+                child: Icon(Icons.add,color: Color(0xff21302f),),
+                label: 'Add with gram',
+                  labelBackgroundColor: MyColors.accentColor,
+                labelStyle: TextStyle(color: Color(0xff21302f)),
+                backgroundColor: MyColors.accentColor,
+                onTap: (){
+                  showDialog(
+                      context: context,
+                      builder: (context) => AddProteinDialog(
+                        showInter: widget.show,
+                      ));
+                }
+              ),
+              SpeedDialChild(
+                  child: Icon(Icons.brunch_dining_outlined,color: Color(0xff21302f),),
+                  label: 'Add from meals',
+                  labelStyle: TextStyle(color: Color(0xff21302f)),
+                  labelBackgroundColor: MyColors.accentColor,
+                  backgroundColor: MyColors.accentColor ,
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>MealsScreen(interstitialAd: widget.show,)));
+
+                  }
+              ),
+            ],
+          ),
+      // FloatingActionButton(
+      //   onPressed: () {
+      //     showDialog(
+      //         context: context,
+      //         builder: (context) => AddProteinDialog(
+      //               showInter: widget.show,
+      //             ));
+      //   },
+      //   backgroundColor: MyColors.accentColor.withOpacity(0.85),
+      //   child: Icon(
+      //     Icons.add,
+      //     color: MyColors.textColor,
+      //     size: 40,
+      //   ),
+      // ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -572,10 +618,7 @@ class _DashboardState extends State<Dashboard> {
                   children: [
                     Column(
                       children: [
-                        if(widget.isBannerReady&&!widget.myProvider.isPurchased)Container(height: widget.myBanner.size.height.toDouble(),width:widget.width,child: AdWidget(ad: widget.myBanner,),),
-                        SizedBox(
-                          height: 16,
-                        ),
+
                         CircularPercentIndicator(
                           circularStrokeCap: CircularStrokeCap.round,
                           backgroundColor:
@@ -730,6 +773,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ],
                     ),
+                    if(isBannerReady&&!widget.myProvider.isPurchased)Container(height: myBanner.size.height.toDouble(),width:myBanner.size.width.toDouble(),child: AdWidget(ad: myBanner,),),
                     //Container(height: height * 0.25, child: ProteinGraph(height)),
                     //!!! Native ad here !!!
                     SizedBox(
@@ -918,35 +962,35 @@ class _DashboardState extends State<Dashboard> {
                     SizedBox(
                       height: 16,
                     ),
-                    if (widget.myProvider.isPurchased == false)
-                      widget.isNativeReady
-                          ? Container(
-                          alignment: Alignment.center,
-                          height:
-                          widget.myBanner.size.height.toDouble() + 20,
-                          padding: EdgeInsets.symmetric(vertical: 16),
-                          decoration: BoxDecoration(
-                              color: MyColors.darkBackGround,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10)),
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: Offset(0, 1),
-                                    color: Colors.black.withOpacity(0.0),
-                                    spreadRadius: 2,
-                                    blurRadius: 5)
-                              ]),
-                          width: widget.width * 0.9,
-                          child: AdWidget(
-                            ad: widget.nativeAd,
-                          ))
-                          : SizedBox(),
-
-
-                    //Spacer(),
-                    SizedBox(
-                      height: 16,
-                    ),
+                    // if (widget.myProvider.isPurchased == false)
+                    //   widget.isNativeReady
+                    //       ? Container(
+                    //       alignment: Alignment.center,
+                    //       height:
+                    //       120,
+                    //       padding: EdgeInsets.symmetric(vertical: 16),
+                    //       decoration: BoxDecoration(
+                    //           color: MyColors.darkBackGround,
+                    //           borderRadius:
+                    //           BorderRadius.all(Radius.circular(10)),
+                    //           boxShadow: [
+                    //             BoxShadow(
+                    //                 offset: Offset(0, 1),
+                    //                 color: Colors.black.withOpacity(0.0),
+                    //                 spreadRadius: 2,
+                    //                 blurRadius: 5)
+                    //           ]),
+                    //       width: widget.width * 0.9,
+                    //       child: AdWidget(
+                    //         ad: widget.nativeAd,
+                    //       ))
+                    //       : SizedBox(),
+                    //
+                    //
+                    // //Spacer(),
+                    // SizedBox(
+                    //   height: 16,
+                    // ),
                     Container(
                       width: widget.width * 0.9,
                       decoration: BoxDecoration(
@@ -1111,7 +1155,7 @@ class _DashboardState extends State<Dashboard> {
                                                                         () {}));
                                                           },
                                                         ),
-                                                        FlatButton(
+                                                        TextButton(
                                                           child: Text(
                                                             'watch ad'
                                                                 .toUpperCase(),
@@ -1245,21 +1289,21 @@ class StatisticsScreen extends StatelessWidget {
       {Key key,
       @required this.myProvider,
       @required this.width,
-      @required this.nativeAd,
-      @required this.isNativeReady,
+      //@required this.nativeAd,
+      //@required this.isNativeReady,
       this.showRewardedAd,
-        this.myBanner,
-        this.isBannerReady,
+        // this.myBanner,
+        // this.isBannerReady,
       this.pos})
       : super(key: key);
 
   final Data myProvider;
-  final isNativeReady;
-  final nativeAd;
+  //final isNativeReady;
+ // final nativeAd;
   final double width;
   final int pos;
-  final BannerAd myBanner;
-  final bool isBannerReady;
+  //final BannerAd myBanner;
+  //final bool isBannerReady;
 
   final Function showRewardedAd;
 
@@ -1270,7 +1314,7 @@ class StatisticsScreen extends StatelessWidget {
         color: MyColors.background,
         child: ListView(
           children: [
-            if(isBannerReady&&!myProvider.isPurchased)Container(height:myBanner.size.height.toDouble(),width:width,child: AdWidget(ad: myBanner)),
+            //if(isBannerReady&&!myProvider.isPurchased)Container(height:myBanner.size.height.toDouble(),width:myBanner.size.width.toDouble(),child: AdWidget(ad: myBanner)),
             SizedBox(
               height: 8,
             ),
@@ -1418,133 +1462,25 @@ class StatisticsScreen extends StatelessWidget {
                         dailyProtein: myProvider.proteinDaily,
                         rewardedAd: showRewardedAd,
                       ),
-                      if (myProvider.isPurchased == false)
-                        isNativeReady && pos == 0
-                            ? Container(
-                                alignment: Alignment.center,
-                                height: 84,
-                                padding: EdgeInsets.symmetric(vertical: 16),
-                                margin: EdgeInsets.only(bottom: 8),
-                                decoration: BoxDecoration(
-                                    color: MyColors.darkBackGround,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          offset: Offset(0, 1),
-                                          color: Colors.black.withOpacity(0.0),
-                                          spreadRadius: 2,
-                                          blurRadius: 5)
-                                    ]),
-                                width: width,
-                                child: isNativeReady
-                                    ? AdWidget(
-                                        ad: nativeAd,
-                                      )
-                                    : SizedBox(
-                                        height: 20,
-                                      ),
-                              )
-                            : Container(),
+
                       OneDayListItem(
                         protein: myProvider.protein2,
                         dailyProtein: myProvider.proteinDaily,
                         rewardedAd: showRewardedAd,
                       ),
-                      if (myProvider.isPurchased == false)
-                        isNativeReady && pos == 1
-                            ? Container(
-                                alignment: Alignment.center,
-                                height: 84,
-                                padding: EdgeInsets.symmetric(vertical: 16),
-                                margin: EdgeInsets.only(bottom: 8),
-                                decoration: BoxDecoration(
-                                    color: MyColors.darkBackGround,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          offset: Offset(0, 1),
-                                          color: Colors.black.withOpacity(0.0),
-                                          spreadRadius: 2,
-                                          blurRadius: 5)
-                                    ]),
-                                width: width,
-                                child: isNativeReady
-                                    ? AdWidget(
-                                        ad: nativeAd,
-                                      )
-                                    : SizedBox(
-                                        height: 20,
-                                      ),
-                              )
-                            : Container(),
+
                       OneDayListItem(
                         protein: myProvider.protein3,
                         dailyProtein: myProvider.proteinDaily,
                         rewardedAd: showRewardedAd,
                       ),
-                      if (myProvider.isPurchased == false)
-                        isNativeReady && pos == 2
-                            ? Container(
-                                alignment: Alignment.center,
-                                height: 84,
-                                padding: EdgeInsets.symmetric(vertical: 16),
-                                margin: EdgeInsets.only(bottom: 8),
-                                decoration: BoxDecoration(
-                                    color: MyColors.darkBackGround,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          offset: Offset(0, 1),
-                                          color: Colors.black.withOpacity(0.0),
-                                          spreadRadius: 2,
-                                          blurRadius: 5)
-                                    ]),
-                                width: width,
-                                child: isNativeReady
-                                    ? AdWidget(
-                                        ad: nativeAd,
-                                      )
-                                    : SizedBox(
-                                        height: 20,
-                                      ),
-                              )
-                            : Container(),
+
                       OneDayListItem(
                         protein: myProvider.protein4,
                         dailyProtein: myProvider.proteinDaily,
                         rewardedAd: showRewardedAd,
                       ),
-                      if (myProvider.isPurchased == false)
-                        isNativeReady && pos == 3
-                            ? Container(
-                                alignment: Alignment.center,
-                                height: 84,
-                                padding: EdgeInsets.symmetric(vertical: 16),
-                                margin: EdgeInsets.only(bottom: 8),
-                                decoration: BoxDecoration(
-                                    color: MyColors.darkBackGround,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          offset: Offset(0, 1),
-                                          color: Colors.black.withOpacity(0.0),
-                                          spreadRadius: 2,
-                                          blurRadius: 5)
-                                    ]),
-                                width: width,
-                                child: isNativeReady
-                                    ? AdWidget(
-                                        ad: nativeAd,
-                                      )
-                                    : SizedBox(
-                                        height: 20,
-                                      ),
-                              )
-                            : Container(),
+
                       OneDayListItem(
                         protein: myProvider.protein5,
                         dailyProtein: myProvider.proteinDaily,
@@ -1705,7 +1641,6 @@ class _OneDayListItemState extends State<OneDayListItem> {
                                 Navigator.pop(context);
                                 Navigator.pushNamed(context, PremiumScreen.id)
                                     .then((value) => setState(() {}));
-                                ;
                               },
                             ),
                             TextButton(
@@ -2142,23 +2077,24 @@ class ProfileScreen extends StatelessWidget {
       {Key key,
       this.myProvider,
       this.myInterstitialAd,
-      this.myProfileBanner,
       this.show,
-      this.isProfileBannerReady,
       this.dialog,
       this.preference,
-      this.isNativeReady,
-      this.nativeAd})
+        this.bannerAd,
+        this.ispr
+      //this.isNativeReady,
+      //this.nativeAd
+      })
       : super(key: key);
-  final bool isProfileBannerReady;
-  final BannerAd myProfileBanner;
   final Data myProvider;
   final InterstitialAd myInterstitialAd;
   final Function show;
   final String preference;
   final dialog;
-  final isNativeReady;
-  final NativeAd nativeAd;
+  final BannerAd bannerAd;
+  final bool ispr;
+  //final isNativeReady;
+  //final NativeAd nativeAd;
 
   @override
   Widget build(BuildContext context) {
@@ -2168,31 +2104,12 @@ class ProfileScreen extends StatelessWidget {
           width: double.infinity,
         ),
 
-        if (myProvider.isPurchased == false)
-          isNativeReady
-              ? Container(
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: MyColors.darkBackGround),
-                  child: AdWidget(
-                    ad: nativeAd,
-                  ),
-                  height: 84,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                )
-              : isProfileBannerReady && myProvider.isPurchased == false
-                  ? Container(
-                      child: AdWidget(
-                        ad: myProfileBanner,
-                      ),
-                      height: myProfileBanner.size.height.toDouble(),
-                      width: myProfileBanner.size.width.toDouble(),
-                    )
-                  : Container(
-                      height: myProfileBanner.size.height.toDouble(),
-                    ),
-        Divider(),
+        !myProvider.isPurchased?ispr?Container(
+          height: bannerAd.size.height.toDouble(),
+          child: AdWidget(
+            ad: bannerAd,
+          ),
+        ):Container(height: bannerAd.size.height.toDouble(),):Container(height: bannerAd.size.height.toDouble(),),
         // Container(
         //   child: AdmobBanner(
         //     adUnitId: AdsManager.profileBannerId,

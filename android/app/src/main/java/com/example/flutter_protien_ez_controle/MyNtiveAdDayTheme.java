@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import com.google.android.gms.ads.nativead.MediaView;
+//import com.google.android.gms.ads.nativead.MediaView;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdView;
 import io.flutter.plugins.googlemobileads.GoogleMobileAdsPlugin.NativeAdFactory;
@@ -25,7 +25,7 @@ class NativeAdFactoryExample2 implements NativeAdFactory {
         final NativeAdView adView = (NativeAdView) layoutInflater.inflate(R.layout.my_native_ad_day_theme, null);
 
         // Set the media view.
-        adView.setMediaView((MediaView) adView.findViewById(R.id.ad_media));
+        //adView.setMediaView((MediaView) adView.findViewById(R.id.ad_media));
 
         // Set other ad assets.
         adView.setHeadlineView(adView.findViewById(R.id.ad_headline));
@@ -39,7 +39,7 @@ class NativeAdFactoryExample2 implements NativeAdFactory {
 
         // The headline and mediaContent are guaranteed to be in every NativeAd.
         ((TextView) adView.getHeadlineView()).setText(nativeAd.getHeadline());
-        adView.getMediaView().setMediaContent(nativeAd.getMediaContent());
+        //adView.getMediaView().setMediaContent(nativeAd.getMediaContent());
 
         // These assets aren't guaranteed to be in every NativeAd, so it's important to
         // check before trying to display them.

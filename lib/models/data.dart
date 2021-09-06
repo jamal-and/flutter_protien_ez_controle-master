@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/scheduler.dart';
+
 import 'package:flutter_protien_ez_controle/models/colors.dart';
 import 'sql_commands.dart';
 import 'data_for_sql.dart';
@@ -66,6 +66,7 @@ void switchTheme(bool a)async{
         verifyPurchase();
       });
     }
+    hasFree();
   }
 
 
@@ -125,10 +126,14 @@ void switchTheme(bool a)async{
   int proteinTake = 0;
   String imagePath;
   String userName;
+  String email;
   List<SingleProtein> items=[];
   String kg='kg!';
   DateTime now = DateTime.now();
-
+  void setEmail(String email)async{
+    SharedPreferences prefs=await SharedPreferences.getInstance();
+    prefs.setString('email', email);
+  }
   // final DateTime dateTime=DateTime.parse(now);
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
   final DateFormat formatterHour = DateFormat('HH:mm:ss');
@@ -159,17 +164,24 @@ void switchTheme(bool a)async{
       return (weight).toInt().toString();
     }
 }
-
+  void hasFree()async{
+    await BillingClient((s){}).queryPurchaseHistory(SkuType.subs).then((value) {hasFreeTrial=value.purchaseHistoryRecordList.length==0;print(value.purchaseHistoryRecordList.length.toString()+'ggg');return null;});
+    notifyListeners();
+  }
   Future<Protein> getWeight() async {
     now = DateTime.now();
+    //hasFree();
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(prefs.getString('email')!=null){
+      email=prefs.getString('email');
+    }
     if(prefs.getBool('dark')!=null){
       MyColors.defaultMode=prefs.getBool('dark');
       darkTheme=prefs.getBool('dark');
     }
-    if(prefs.getBool('free')!=null){
-      hasFreeTrial=false;
-    }
+    // if(prefs.getBool('free')!=null){
+    //   hasFreeTrial=false;
+    // }
     if(prefs.getString('image')!=null){
       imagePath=prefs.getString('image');
     }
@@ -395,5 +407,23 @@ void switchTheme(bool a)async{
     // } else {
     //   print('all null ');
     // }
+  }
+
+  void addMeal(Meal meal){
+    MakeCommand.addMeal(meal);
+    notifyListeners();
+  }
+  void updateMeal(Meal meal){
+    MakeCommand.updateMeal(meal);
+    notifyListeners();
+  }
+  void deleteMeal(Meal meal){
+    MakeCommand.deleteMeal(meal);
+    notifyListeners();
+  }
+  List<Meal> mealList=[];
+  Future<List<Meal>> getMeals()async{
+    mealList=await MakeCommand.getMeals();
+    return mealList;
   }
 }

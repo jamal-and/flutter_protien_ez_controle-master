@@ -1,6 +1,8 @@
 //import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_protien_ez_controle/screens/add_meal_screen.dart';
 import 'package:flutter_protien_ez_controle/screens/main_screen.dart';
+import 'package:flutter_protien_ez_controle/screens/meals_screen.dart';
 import 'package:flutter_protien_ez_controle/screens/personal_inofrmation_screen.dart';
 import 'package:flutter_protien_ez_controle/screens/premium_screen.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
@@ -12,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 
 bool isLoggedIn = false;
 bool isDarkTheme=true;
@@ -26,7 +29,6 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   isLoggedIn = prefs.getInt('weight') != null ? true : false;
   isDarkTheme=prefs.getBool('dark');
-
   runApp(MyApp());
 }
 
@@ -80,6 +82,8 @@ class MyMaterialApp extends StatelessWidget {
         MainScreen.id: (context) => MainScreen(),
         PremiumScreen.id:(context)=>PremiumScreen(),
         PersonalInformationScreen.id:(context)=>PersonalInformationScreen(),
+        MealsScreen.id:(context)=>MealsScreen(),
+        AddMealScreen.id:(context)=>AddMealScreen(),
       },
     );
   }

@@ -1,10 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_protien_ez_controle">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.flutter_protien_ez_controle"
+    >
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.vending.BILLING" />
    <application
+
         android:label="Protein Tracker"
+       tools:replace="android:label"
         android:icon="@mipmap/ic_launcher">
        <activity
             android:name=".MainActivity"

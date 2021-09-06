@@ -38,7 +38,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     WelcomeScreen.getPrefs(context);
-
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -173,6 +172,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     }
                     SharedPreferences prefs = await SharedPreferences.getInstance();
                     try{
+                      prefs.setBool('kg', kg);
                       //await MakeCommand.insertProtein(newweight);
                       print('setting weight..');
                       await Provider.of<Data>(context,listen: false).setWeight(weight);

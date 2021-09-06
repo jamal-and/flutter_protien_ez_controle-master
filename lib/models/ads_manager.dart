@@ -1,7 +1,7 @@
 //import 'package:admob_flutter/admob_flutter.dart';
 
 class AdsManager{
-  static bool testMode=false;
+  static bool testMode=false ;
   static String get nativeId{
     return 'ca-app-pub-3940256099942544/2247696110';
   }

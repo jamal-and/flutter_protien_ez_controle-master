@@ -80,8 +80,8 @@
                                 android:id="@+id/ad_body"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="20dp"
-                                android:layout_marginEnd="20dp"
+                                android:layout_marginRight="4dp"
+                                android:layout_marginEnd="4dp"
                                 android:textColor="#ffffff"
                                 android:ellipsize="end"
                                 android:textSize="12sp"
@@ -151,22 +151,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="vertical">
-
-
-
-                <com.google.android.gms.ads.nativead.MediaView
-                    android:id="@+id/ad_media"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="250dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="5dp" />
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </com.google.android.gms.ads.nativead.NativeAdView>

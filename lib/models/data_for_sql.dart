@@ -36,3 +36,24 @@ class SingleProtein {
     };
   }
 }
+
+class Meal {
+  final String name;
+  final int protein;
+  final String description;
+  final String color;
+  final int id;
+
+  Meal({this.name, this.protein, this.description,this.color,this.id});
+
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id':id,
+      'name': name,
+      'protein': protein,
+      'description': description,
+      'color':color
+    };
+  }
+}
