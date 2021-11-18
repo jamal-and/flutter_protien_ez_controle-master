@@ -323,12 +323,10 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
     if (Provider.of<Data>(context, listen: false).isPurchased == false) {
-      //myNative3.load();
+      myNative3.load();
       myProfileBanner.load();
-      //myNative2.load();
-      //myNative.load();
-
-
+      myNative2.load();
+      myNative.load();
     }
   }
 

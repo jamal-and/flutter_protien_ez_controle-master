@@ -213,7 +213,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   Provider.of<Data>(context, listen: false).switchTheme(value);
 
                   // widget.reLoadAds();
-                  Navigator.popAndPushNamed(context, MainScreen.id);
+                  //Navigator.popAndPushNamed(context, MainScreen.id);
                 }),
           ),
           GestureDetector(

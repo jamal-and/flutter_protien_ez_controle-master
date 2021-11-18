@@ -152,10 +152,7 @@ class MakeCommand{
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formatted = formatter.format(dateTime);
     final List<Map<String, dynamic>> maps = await db.query('single_protein',where: 'date == ?',whereArgs: [formatted]);
-
-
-
-    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    // Convert the List<Map<String, dynamic> into a List<Protein>.
     return List.generate(maps.length, (i) {
       print('${maps[i]['hour']}');
       return SingleProtein(

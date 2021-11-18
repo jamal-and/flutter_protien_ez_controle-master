@@ -122,7 +122,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
       appBar: AppBar(
         actions: [IconButton(icon:widget.meal==null?Icon(Icons.add):Icon(Icons.done), onPressed: () {
           if (key.currentState.validate()){
-            if( Provider.of<Data>(context, listen: false).isPurchased) {
+            if( Provider.of<Data>(context, listen: false).isPurchased || Provider.of<Data>(context, listen: false).mealList.length<5 ||widget.meal != null) {
               if (widget.meal == null) {
                 Provider.of<Data>(context, listen: false).addMeal(
                     Meal(
@@ -150,7 +150,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
                             color: MyColors.accentColor,
                             fontWeight: FontWeight.bold)),
                     content: Text(
-                        'Watch an ad to add meal for free or you can upgrade premium'),
+                        '5 Meals maximum for free version ,Watch an ad to add meal or you can upgrade premium'),
                     actions: <Widget>[
                       TextButton(
                         child: Text(
@@ -452,7 +452,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
                 ElevatedButton(
                   onPressed: (){
                     if (key.currentState.validate()){
-                      if( Provider.of<Data>(context, listen: false).isPurchased) {
+                      if( Provider.of<Data>(context, listen: false).isPurchased || Provider.of<Data>(context, listen: false).mealList.length<5 ||widget.meal != null) {
                         if (widget.meal == null) {
                           Provider.of<Data>(context, listen: false).addMeal(
                               Meal(
@@ -480,7 +480,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
                                       color: MyColors.accentColor,
                                       fontWeight: FontWeight.bold)),
                               content: Text(
-                                  'Watch an ad to add meal for free or you can upgrade premium'),
+                                  '5 Meals maximum for free version ,Watch an ad to add meal or you can upgrade premium'),
                               actions: <Widget>[
                                 TextButton(
                                   child: Text(
