@@ -1,4 +1,5 @@
 //import 'package:admob_flutter/admob_flutter.dart';
+import 'package:admob_consent/admob_consent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_protien_ez_controle/screens/add_meal_screen.dart';
 import 'package:flutter_protien_ez_controle/screens/main_screen.dart';
@@ -14,7 +15,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:gdpr_dialog/gdpr_dialog.dart';
 
 bool isLoggedIn = false;
 bool isDarkTheme=true;
@@ -51,11 +52,53 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyMaterialApp extends StatelessWidget {
+class MyMaterialApp extends StatefulWidget {
   const MyMaterialApp({
     Key key,
   }) : super(key: key);
 
+  @override
+  State<MyMaterialApp> createState() => _MyMaterialAppState();
+}
+
+class _MyMaterialAppState extends State<MyMaterialApp> {
+  AdmobConsent _admobConsent = AdmobConsent();
+  Future<void> showAdmobConsent()async{
+    if(!Provider.of<Data>(context,listen: false).isPurchased){
+    _admobConsent.show();
+    _admobConsent.onConsentFormObtained.listen((o) {
+      // Obtained consent
+
+    });}
+  }
+  void ss()async{
+    var s=await GdprDialog.instance.getConsentStatus();
+    print('hehe $s');
+}
+void kk()async{
+    await Provider.of<Data>(context,listen: false).initialize();
+    print('${Provider.of<Data>(context,listen: false).isPurchased} asdd');
+    if(!Provider.of<Data>(context,listen: false).isPurchased){//AppOpenAdManager().loadAd();
+    showAdmobConsent();}
+
+}
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();//ss();
+    // GdprDialog.instance.showDialog(isForTest: true,)
+    //     .then((onValue) {
+    //   print('result === $onValue');
+    // });
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
+      kk();
+
+    });//appOpenAdManager.showAdIfAvailable();
+    // WidgetsBinding.instance
+    //     .addObserver(AppLifecycleReactor(appOpenAdManager: appOpenAdManager));
+  }
   @override
   Widget build(BuildContext context) {
 

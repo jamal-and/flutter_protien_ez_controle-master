@@ -174,29 +174,35 @@
 -printconfiguration proguard-merged-config.txt
 # Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:45
 -keep class androidx.core.app.CoreComponentFactory { <init>(); }
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:274
+-keep class androidx.lifecycle.ProcessLifecycleOwnerInitializer { <init>(); }
 # Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:45
 -keep class androidx.multidex.MultiDexApplication { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:362
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:395
 -keep class androidx.room.MultiInstanceInvalidationService { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:278
--keep class androidx.work.impl.WorkManagerInitializer { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:302
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:284
+-keep class androidx.startup.InitializationProvider { <init>(); }
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:315
 -keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:312
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:325
 -keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:332
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:345
 -keep class androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:322
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:335
 -keep class androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:352
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:365
 -keep class androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:341
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:354
 -keep class androidx.work.impl.background.systemalarm.RescheduleReceiver { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:285
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:293
 -keep class androidx.work.impl.background.systemalarm.SystemAlarmService { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:290
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:298
 -keep class androidx.work.impl.background.systemjob.SystemJobService { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:297
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:374
+-keep class androidx.work.impl.diagnostics.DiagnosticsReceiver { <init>(); }
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:304
+-keep class androidx.work.impl.foreground.SystemForegroundService { <init>(); }
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:310
 -keep class androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver { <init>(); }
 # Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:201
 -keep class com.android.billingclient.api.ProxyBillingActivity { <init>(); }
@@ -206,37 +212,37 @@
 -keep class com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver { <init>(); }
 # Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:50
 -keep class com.example.flutter_protien_ez_controle.MainActivity { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:227
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:243
 -keep class com.google.android.datatransport.runtime.backends.TransportBackendDiscovery { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:371
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:391
 -keep class com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:365
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:385
 -keep class com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:257
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:206
 -keep class com.google.android.gms.ads.AdActivity { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:269
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:218
 -keep class com.google.android.gms.ads.AdService { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:263
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:212
 -keep class com.google.android.gms.ads.MobileAdsInitProvider { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:252
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:268
 -keep class com.google.android.gms.measurement.AppMeasurementJobService { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:242
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:258
 -keep class com.google.android.gms.measurement.AppMeasurementReceiver { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:248
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:264
 -keep class com.google.android.gms.measurement.AppMeasurementService { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:387
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:412
 -keep class com.google.android.play.core.assetpacks.AssetPackExtractionService { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:381
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:406
 -keep class com.google.android.play.core.common.PlayCoreDialogWrapperActivity { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:374
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:399
 -keep class com.google.android.play.core.missingsplits.PlayCoreMissingSplitsActivity { <init>(); }
 # Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:149
 -keep class com.google.firebase.components.ComponentDiscoveryService { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:207
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:223
 -keep class com.google.firebase.iid.FirebaseInstanceIdReceiver { <init>(); }
-# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:219
--keep class com.google.firebase.messaging.FirebaseMessagingService { <init>(); }
 # Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:235
+-keep class com.google.firebase.messaging.FirebaseMessagingService { <init>(); }
+# Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:251
 -keep class com.google.firebase.provider.FirebaseInitProvider { <init>(); }
 # Referenced at D:\flutter_protien_ez_controle-master\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:128
 -keep class io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingBackgroundService { <init>(); }
@@ -372,10 +378,6 @@
 
 # Keep the AIDL interface
 -keep class com.android.vending.billing.** { *; }
-# Analytics library is optional.
-# Access to this class is protected by try/catch(NoClassDefFoundError e)
-# b/35686744 Don't fail during proguard if the class is missing from the APK.
--dontwarn com.google.android.gms.measurement.AppMeasurement*
 # Needed for DNS resolution.  Present in OpenJDK, but not Android
 -dontwarn javax.naming.**
 -dontwarn com.squareup.okhttp.**
@@ -396,114 +398,37 @@
 -dontwarn okio.**
 -dontwarn com.google.j2objc.annotations.**
 -dontwarn afu.org.checkerframework.**
--dontwarn com.google.auto.value.AutoValue
--dontwarn com.google.auto.value.AutoValue$Builder
-
-# Can be removed once we pull in a dependency on firebase-common that includes
-# https://github.com/firebase/firebase-android-sdk/pull/1472/commits/856f1ca1151cdd88679bbc778892f23dfa34fc06#diff-a2ed34b5a38b4c6c686b09e54865eb48
--dontwarn com.google.auto.value.AutoValue
--dontwarn com.google.auto.value.AutoValue$Builder
-
-# We keep all fields for every generated proto file as the runtime uses
-# reflection over them that ProGuard cannot detect. Without this keep
-# rule, fields may be removed that would cause runtime failures.
--keepclassmembers class * extends com.google.android.gms.internal.measurement.zzjz {
-  <fields>;
-}
-
--dontwarn com.google.firebase.platforminfo.KotlinDetector
--dontwarn com.google.auto.value.AutoValue
--dontwarn com.google.auto.value.AutoValue$Builder
-# We keep all fields for every generated proto file as the runtime uses
-# reflection over them that ProGuard cannot detect. Without this keep
-# rule, fields may be removed that would cause runtime failures.
--keepclassmembers class * extends com.google.android.gms.internal.measurement.zzjz {
-  <fields>;
-}
-
-# We keep all fields for every generated proto file as the runtime uses
-# reflection over them that ProGuard cannot detect. Without this keep
-# rule, fields may be removed that would cause runtime failures.
--keepclassmembers class * extends com.google.android.gms.internal.measurement.zzjz {
-  <fields>;
-}
-
-# We keep all fields for every generated proto file as the runtime uses
-# reflection over them that ProGuard cannot detect. Without this keep
-# rule, fields may be removed that would cause runtime failures.
--keepclassmembers class * extends com.google.android.gms.internal.measurement.zzjz {
-  <fields>;
-}
-
 -keep public class com.google.android.gms.ads.internal.ClientApi {
   <init>();
 }
 
+# When built for Android API level < 30, Proguard warns that it can't find
+# android.telephony.TelephonyDisplayInfo (since it was added only in API level
+# 30). But, all its usages are guarded by runtime checks of the API level.
+# Hence, it is safe to suppress Proguard's warnings.
+-dontwarn android.telephony.TelephonyDisplayInfo
+
+# When built for Android API level < 30, Proguard warns that it can't find
+# android.view.Surface#setFrameRate(float, int) (since it was added only in API
+# level 30). But, all its usages are guarded by runtime checks of the API level.
+# Hence, it is safe to suppress Proguard's warnings.
+-dontwarn android.view.Surface
+
+# These are checked at runtime for whether they exist, so it is fine if the API level doesn't include these.
+-dontwarn android.content.pm.ApkChecksum
+-dontwarn android.content.pm.PackageManager$OnChecksumsReadyListener
+# Only for the requestChecksums method, but sadly -dontwarn can't take just a single method.
+-dontwarn android.content.pm.PackageManager
+
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
 # rule, fields may be removed that would cause runtime failures.
--keepclassmembers class * extends com.google.android.gms.internal.ads.zzeth {
+-keepclassmembers class * extends com.google.android.gms.internal.ads.zzgeq {
   <fields>;
 }
 
 # Auto-generated proguard rule with obfuscated symbol
 -dontwarn com.google.android.gms.ads.internal.util.zzab
-# Copyright (C) 2017 The Android Open Source Project
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# Prevent Parcelable objects from being removed or renamed.
--keep class android.support.v4.media.** implements android.os.Parcelable {
-    public static final android.os.Parcelable$Creator *;
-}
-
-# Prevent Parcelable objects from being removed or renamed.
--keep class androidx.media.** implements android.os.Parcelable {
-    public static final android.os.Parcelable$Creator *;
-}
-# Copyright (C) 2018 The Android Open Source Project
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# Ensure that reflectively-loaded inflater is not obfuscated. This can be
-# removed when we stop supporting AAPT1 builds.
--keepnames class androidx.appcompat.app.AppCompatViewInflater
-
-# aapt is not able to read app::actionViewClass and app:actionProviderClass to produce proguard
-# keep rules. Add a commonly used SearchView to the keep list until b/109831488 is resolved.
--keep class androidx.appcompat.widget.SearchView { <init>(...); }
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep class * extends com.bumptech.glide.module.AppGlideModule {
- <init>(...);
-}
--keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
-}
-
-# Uncomment for DexGuard only
-#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
-
 # Keep implementations of the AdMob mediation adapter interfaces. Adapters for
 # third party ad networks implement these interfaces and are invoked by the
 # AdMob SDK via reflection.
@@ -544,10 +469,92 @@
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
 # rule, fields may be removed that would cause runtime failures.
--keepclassmembers class * extends com.google.android.gms.internal.ads.zzeth {
+-keepclassmembers class * extends com.google.android.gms.internal.ads.zzgeq {
   <fields>;
 }
 
+# Analytics library is optional.
+# Access to this class is protected by try/catch(NoClassDefFoundError e)
+# b/35686744 Don't fail during proguard if the class is missing from the APK.
+-dontwarn com.google.android.gms.measurement.AppMeasurement*
+-dontwarn com.google.auto.value.AutoValue
+-dontwarn com.google.auto.value.AutoValue$Builder
+
+# Can be removed once we pull in a dependency on firebase-common that includes
+# https://github.com/firebase/firebase-android-sdk/pull/1472/commits/856f1ca1151cdd88679bbc778892f23dfa34fc06#diff-a2ed34b5a38b4c6c686b09e54865eb48
+-dontwarn com.google.auto.value.AutoValue
+-dontwarn com.google.auto.value.AutoValue$Builder
+
+# We keep all fields for every generated proto file as the runtime uses
+# reflection over them that ProGuard cannot detect. Without this keep
+# rule, fields may be removed that would cause runtime failures.
+-keepclassmembers class * extends com.google.android.gms.internal.measurement.zzjz {
+  <fields>;
+}
+
+-dontwarn com.google.firebase.platforminfo.KotlinDetector
+-dontwarn com.google.auto.value.AutoValue
+-dontwarn com.google.auto.value.AutoValue$Builder
+# We keep all fields for every generated proto file as the runtime uses
+# reflection over them that ProGuard cannot detect. Without this keep
+# rule, fields may be removed that would cause runtime failures.
+-keepclassmembers class * extends com.google.android.gms.internal.measurement.zzjz {
+  <fields>;
+}
+
+# We keep all fields for every generated proto file as the runtime uses
+# reflection over them that ProGuard cannot detect. Without this keep
+# rule, fields may be removed that would cause runtime failures.
+-keepclassmembers class * extends com.google.android.gms.internal.measurement.zzjz {
+  <fields>;
+}
+
+# We keep all fields for every generated proto file as the runtime uses
+# reflection over them that ProGuard cannot detect. Without this keep
+# rule, fields may be removed that would cause runtime failures.
+-keepclassmembers class * extends com.google.android.gms.internal.measurement.zzjz {
+  <fields>;
+}
+
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule {
+ <init>(...);
+}
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+# Uncomment for DexGuard only
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+
+# Copyright (C) 2018 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Ensure that reflectively-loaded inflater is not obfuscated. This can be
+# removed when we stop supporting AAPT1 builds.
+-keepnames class androidx.appcompat.app.AppCompatViewInflater
+
+# aapt is not able to read app::actionViewClass and app:actionProviderClass to produce proguard
+# keep rules. Add a commonly used SearchView to the keep list until b/109831488 is resolved.
+-keep class androidx.appcompat.widget.SearchView { <init>(...); }
+-dontwarn com.google.firebase.components.Component$Instantiation
+-dontwarn com.google.firebase.components.Component$ComponentType
+-keep class * implements com.google.firebase.components.ComponentRegistrar
+
+# this rule is need to work properly when app is compiled with api 28, see b/142778206
+-keepclassmembers class * extends androidx.lifecycle.EmptyActivityLifecycleCallbacks { *; }
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
 # rule, fields may be removed that would cause runtime failures.
@@ -629,6 +636,29 @@
 # non-required dependencies.
 -dontwarn javax.annotation.**
 -dontwarn org.checkerframework.**
+# Copyright (C) 2017 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Prevent Parcelable objects from being removed or renamed.
+-keep class android.support.v4.media.** implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+
+# Prevent Parcelable objects from being removed or renamed.
+-keep class androidx.media.** implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
 -keep class * extends androidx.work.Worker
 -keep class * extends androidx.work.InputMerger
 # Keep all constructors on ListenableWorker, Worker (also marked with @Keep)
@@ -681,22 +711,19 @@
 # Make sure we keep annotations for CoordinatorLayout's DefaultBehavior and ViewPager's DecorView
 -keepattributes *Annotation*
 
--keep class * extends androidx.room.RoomDatabase
--dontwarn androidx.room.paging.**
-
 # Never inline methods, but allow shrinking and obfuscation.
 -keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.view.ViewCompat$Api* {
   <methods>;
 }
--keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.view.WindowInsetsCompat$Impl* {
+-keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.view.WindowInsetsCompat$*Impl* {
   <methods>;
 }
--keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.view.WindowInsetsCompat$BuilderImpl* {
+-keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.app.NotificationCompat$*$Api*Impl {
   <methods>;
 }
--dontwarn com.google.firebase.components.Component$Instantiation
--dontwarn com.google.firebase.components.Component$ComponentType
--keep class * implements com.google.firebase.components.ComponentRegistrar
+-keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.os.UserHandleCompat$Api*Impl {
+  <methods>;
+}
 
 -keepattributes *Annotation*
 
@@ -739,7 +766,10 @@
 -dontwarn com.google.auto.value.AutoValue$Builder
 -dontwarn com.google.auto.value.AutoValue
 -dontwarn com.google.auto.value.AutoValue$Builder
--keep public class * implements androidx.versionedparcelable.VersionedParcelable
+-keep class * extends androidx.room.RoomDatabase
+-dontwarn androidx.room.paging.**
+
+-keep class * implements androidx.versionedparcelable.VersionedParcelable
 -keep public class android.support.**Parcelizer { *; }
 -keep public class androidx.**Parcelizer { *; }
 -keep public class androidx.versionedparcelable.ParcelImpl
@@ -751,6 +781,15 @@
 -keepclassmembers,allowobfuscation class * extends androidx.lifecycle.AndroidViewModel {
     <init>(android.app.Application);
 }
+
+# This Proguard rule ensures that ComponentInitializers are are neither shrunk nor obfuscated.
+# This is because they are discovered and instantiated during application initialization.
+-keep class * extends androidx.startup.Initializer {
+    # Keep the public no-argument constructor while allowing other methods to be optimized.
+    <init>();
+}
+
+-assumenosideeffects class androidx.startup.StartupLogger
 
 -keep,allowobfuscation @interface androidx.annotation.Keep
 -keep @androidx.annotation.Keep class * {*;}
@@ -765,6 +804,10 @@
 
 -keepclasseswithmembers class * {
     @androidx.annotation.Keep <init>(...);
+}
+
+-keepclassmembers,allowobfuscation class * {
+  @androidx.annotation.DoNotInline <methods>;
 }
 
 # Keep class members used for serialization
@@ -809,4 +852,27 @@
   <fields>;
 }
 
+# Copyright (C) 2020 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Ignore missing Kotlin meta-annotations so that this library can be used
+# without adding a compileOnly dependency on the Kotlin standard library.
+-dontwarn kotlin.Deprecated
+-dontwarn kotlin.Metadata
+-dontwarn kotlin.ReplaceWith
+-dontwarn kotlin.annotation.AnnotationRetention
+-dontwarn kotlin.annotation.AnnotationTarget
+-dontwarn kotlin.annotation.Retention
+-dontwarn kotlin.annotation.Target
 -ignorewarnings

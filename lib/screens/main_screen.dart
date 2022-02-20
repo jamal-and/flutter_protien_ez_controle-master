@@ -43,9 +43,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  NativeAd myNative;
-  NativeAd myNative2;
-  NativeAd myNative3;
+
   int maxFailedLoadAttempts = 20;
   RewardedAd myRewarded;
   int currentIndex = 0;
@@ -79,7 +77,7 @@ class _MainScreenState extends State<MainScreen> {
   void loadAd() {
     InterstitialAd.load(
         adUnitId: AdsManager.intersitialAdId,
-        request: AdRequest(),
+        request: AdRequest(nonPersonalizedAds: false),
         adLoadCallback:
             InterstitialAdLoadCallback(onAdLoaded: (InterstitialAd ad) {
           setState(() {
@@ -188,8 +186,9 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<Data>(context, listen: false).initialize();
+    //Provider.of<Data>(context, listen: false).initialize();
     super.initState();
+
     _createRewardedAd();
     loadAd();
     myProfileBanner = BannerAd(
@@ -236,97 +235,11 @@ class _MainScreenState extends State<MainScreen> {
 
   loadAds() async {
     prefs = await SharedPreferences.getInstance();
-    bool isDark = prefs.getBool('dark') ?? true;
-    myNative = NativeAd(
-      adUnitId: 'ca-app-pub-8571844432257036/9146930659',
-      factoryId: isDark ? 'adFactoryExample' : 'adFactoryExample4',
-      request: AdRequest(),
-      listener: NativeAdListener(
-        // Called when an ad is successfully received.
-        onAdLoaded: (Ad ad) {
-          setState(() {
-            isNativeReady = true;
-          });
-          print('Ad loaded!!.');
-        },
-        // Called when an ad request failed.
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          // Dispose the ad here to free resources.
 
-          ad.dispose();
-          print('Native Ad failed to load: $error');
-        },
-        // Called when an ad opens an overlay that covers the screen.
-        onAdOpened: (Ad ad) => print('Ad opened!!.'),
-        // Called when an ad removes an overlay that covers the screen.
-        onAdClosed: (Ad ad) => print('Ad closed!!.'),
-        // Called when an impression occurs on the ad.
-        onAdImpression: (Ad ad) => print('Ad impression.'),
-        // Called when a click is recorded for a NativeAd.
-        onNativeAdClicked: (NativeAd ad) => print('Ad clicked.'),
-      ),
-    );
-    myNative3 = NativeAd(
-      adUnitId: 'ca-app-pub-8571844432257036/7656828978',
-      factoryId: isDark ? 'adFactoryExample2' : 'adFactoryExample3',
-      request: AdRequest(),
-      listener: NativeAdListener(
-        // Called when an ad is successfully received.
-        onAdLoaded: (Ad ad) {
-          setState(() {
-            isNativeReady3 = true;
-          });
-          print('Ad loaded!!.');
-        },
-        // Called when an ad request failed.
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          // Dispose the ad here to free resources.
-          ad.dispose();
-          print('Native Ad failed to load: $error');
-        },
-        // Called when an ad opens an overlay that covers the screen.
-        onAdOpened: (Ad ad) => print('Ad opened!!.'),
-        // Called when an ad removes an overlay that covers the screen.
-        onAdClosed: (Ad ad) => print('Ad closed!!.'),
-        // Called when an impression occurs on the ad.
-        onAdImpression: (Ad ad) => print('Ad impression.'),
-        // Called when a click is recorded for a NativeAd.
-        onNativeAdClicked: (NativeAd ad) => print('Ad clicked.'),
-      ),
-    );
-    myNative2 = NativeAd(
-      adUnitId: 'ca-app-pub-8571844432257036/5144068475',
-      factoryId: isDark ? 'adFactoryExample2' : 'adFactoryExample3',
-      request: AdRequest(),
-      listener: NativeAdListener(
-        // Called when an ad is successfully received.
-        onAdLoaded: (Ad ad) {
-          setState(() {
-            isNativeReady2 = true;
-          });
-          print('Ad loaded!!. 22');
-        },
-        // Called when an ad request failed.
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          // Dispose the ad here to free resources.
-          ad.dispose();
-          print('Native Ad failed to load: $error');
-        },
-        // Called when an ad opens an overlay that covers the screen.
-        onAdOpened: (Ad ad) => print('Ad opened!!.'),
-        // Called when an ad removes an overlay that covers the screen.
-        onAdClosed: (Ad ad) => print('Ad closed!!.'),
-        // Called when an impression occurs on the ad.
-        onAdImpression: (Ad ad) => print('Ad impression.'),
-        // Called when a click is recorded for a NativeAd.
-        onNativeAdClicked: (NativeAd ad) => print('Ad clicked.'),
-      ),
-    );
     if (Provider.of<Data>(context, listen: false).isPurchased == false) {
-      myNative3.load();
-      myProfileBanner.load();
-      myNative2.load();
-      myNative.load();
+
+      //myProfileBanner.load();
+
     }
   }
 
@@ -349,9 +262,7 @@ class _MainScreenState extends State<MainScreen> {
   void dispose() {
     //interstitialAd.dispose();
     Provider.of<Data>(context, listen: false).subscription.cancel();
-    myNative.dispose();
-    myNative3.dispose();
-    myNative2.dispose();
+
     myRewarded.dispose();
     myProfileBanner.dispose();
     myInterstitialAd.dispose();
@@ -452,8 +363,7 @@ class _MainScreenState extends State<MainScreen> {
           controller: pageController,
           children: [
             Dashboard(
-              nativeAd: myNative,
-              isNativeReady: isNativeReady,
+
               myProvider: myProvider,
               height: height,
               width: width,
@@ -497,8 +407,8 @@ class Dashboard extends StatefulWidget {
       @required this.myProvider,
       @required this.height,
       @required this.width,
-      @required this.isNativeReady,
-      @required this.nativeAd,
+
+
       @required this.pageController,
       @required this.show,
       this.rewardedAd})
@@ -507,8 +417,8 @@ class Dashboard extends StatefulWidget {
   final Data myProvider;
   final double height;
   final double width;
-  final bool isNativeReady;
-  final NativeAd nativeAd;
+
+
   final Function show;
   final PageController pageController;
   final Function rewardedAd;
@@ -2102,12 +2012,7 @@ class ProfileScreen extends StatelessWidget {
           width: double.infinity,
         ),
 
-        !myProvider.isPurchased?ispr?Container(
-          height: bannerAd.size.height.toDouble(),
-          child: AdWidget(
-            ad: bannerAd,
-          ),
-        ):Container(height: bannerAd.size.height.toDouble(),):Container(height: bannerAd.size.height.toDouble(),),
+        Container(height: bannerAd.size.height.toDouble(),),
         // Container(
         //   child: AdmobBanner(
         //     adUnitId: AdsManager.profileBannerId,

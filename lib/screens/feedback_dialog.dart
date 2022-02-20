@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_protien_ez_controle/models/colors.dart';
 import 'package:flutter_protien_ez_controle/models/data.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SendFeedBackDialog extends StatefulWidget {
   @override
@@ -22,10 +21,44 @@ class _SendFeedBackDialogState extends State<SendFeedBackDialog> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    emailController=TextEditingController(text: Provider.of<Data>(context,listen: false).email);
+    emailController=TextEditingController(text: Provider.of<Data>(context,listen: false).userName);
   }
+  launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+  String encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
+  }
+
+
+  _launchURLMail({@required String name,@required String body}) async {
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'tracker.protein@gmail.com',
+      query: encodeQueryParameters(<String, String>{
+        'subject': 'From $name',
+        'body':'$body'
+      }),
+    );
+    // var url =
+    //     "mailto:tracker.protein@gmail.com?subject=From $name&body=$body";
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
+    } else {
+      throw 'Could not launch ${emailLaunchUri.toString()}';
+    }
+  }
+  String name;
+  String body;
   @override
   Widget build(BuildContext context) {
+
 
     return isLoading?
     Center(
@@ -57,7 +90,7 @@ class _SendFeedBackDialogState extends State<SendFeedBackDialog> {
             ),
             SizedBox(height: 8,),
             Text(
-              'Add your email if want to get respond',
+              'Thank you for your time to write this feedback',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 14,color: MyColors.textColor.withOpacity(0.8)),
             ),
@@ -69,8 +102,7 @@ class _SendFeedBackDialogState extends State<SendFeedBackDialog> {
 
               controller: emailController,
               onChanged: (v) {
-                // Provider.of<Data>(context).proteinWillBeAdded = int.parse(v);
-                //mv = int.parse(v);
+                name=v;
               },
               style: TextStyle(fontSize: 16,color: MyColors.textColor),
               cursorColor: MyColors.accentColor,
@@ -81,8 +113,8 @@ class _SendFeedBackDialogState extends State<SendFeedBackDialog> {
                 labelStyle: TextStyle(color:MyColors.accentColor ),
                 contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 12),
                 counterText: '',
-                labelText: 'email',
-                hintText: 'Your email (optional)',
+                labelText: 'Name',
+                hintText: 'what we should call you',
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyColors.accentColor,),
                 ),
@@ -104,6 +136,7 @@ class _SendFeedBackDialogState extends State<SendFeedBackDialog> {
               onChanged: (v) {
                 // Provider.of<Data>(context).proteinWillBeAdded = int.parse(v);
                 //mv = int.parse(v);
+                body=v;
               },
               style: TextStyle(fontSize: 16,color: MyColors.textColor),
               cursorColor: MyColors.accentColor,
@@ -136,7 +169,7 @@ class _SendFeedBackDialogState extends State<SendFeedBackDialog> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    if (controller.text != null &&controller.text.isNotEmpty) {
+                    if (controller.text != null &&controller.text.isNotEmpty &&emailController.text.isNotEmpty &&emailController.text!=null) {
                       try {
                         final result = await InternetAddress.lookup('google.com');
                         if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -152,59 +185,42 @@ class _SendFeedBackDialogState extends State<SendFeedBackDialog> {
                         );
                         return;
                       }
-                      String username = 'tracker.protein@gmail.com';
-                      String password = 'Protein771';
-
-                      final smtpServer = gmail(username, password);
-                      // Use the SmtpServer class to configure an SMTP server:
-                      // final smtpServer = SmtpServer('smtp.domain.com');
-                      // See the named arguments of SmtpServer for further configuration
-                      // options.
-                      var myProvider = Provider.of<Data>(context,listen: false);
-                      // Create our message.
-                      final message = Message()
-                        ..from = Address(username, '${emailController.text??'Without email'}')
-                        ..recipients.add('jamal2011922@gmail.com')
-                        ..subject = 'Protein Tracker App Feedback'
-                        ..text = 'This is the plain text.\nThis is line 2 of the text part.'
-                        ..html = "<h1>FeedBack from ${myProvider.userName}</h1>\n<p>${controller.text}</p>";
-                      try {
-                        setState(() {
-                          isLoading=true;
-                        });
-                        final sendReport = await send(message, smtpServer);
-                        print('Message sent: ' + sendReport.toString());
-                        showTopSnackBar(
-                          context,
-                          CustomSnackBar.success(
-                            message:
-                            "Feedback sent successfully!",
-                          ),
-                        );
-                      } on MailerException catch (e) {
-                        print('Message not sent. $e');
-                        showTopSnackBar(
-                          context,
-                          CustomSnackBar.error(
-                            message:
-                            "Feedback sent failed, please try again later",
-                          ),
-                        );
-                        for (var p in e.problems) {
-                          print('Problem: ${p.code}: ${p.msg}');
-                        }
-                      }
-                      Navigator.pop(context);
-                    } else {
-                      showTopSnackBar(
-                        context,
-                        CustomSnackBar.error(
-                          message:
-                          "Empty Feedback!. Please fill your feedback",
-                        ),
-                      );
+                      _launchURLMail(name: name, body: body);
+                    //   try {
+                    //     setState(() {
+                    //       isLoading=true;
+                    //     });
+                    //
+                    //   } on MailerException catch (e) {
+                    //     print('Message not sent. $e');
+                    //     showTopSnackBar(
+                    //       context,
+                    //       CustomSnackBar.error(
+                    //         message:
+                    //         "Feedback sent failed, please try again later",
+                    //       ),
+                    //     );
+                    //     for (var p in e.problems) {
+                    //       print('Problem: ${p.code}: ${p.msg}');
+                    //     }
+                    //   }
+                    //   Navigator.pop(context);
+                    // } else {
+                    //   showTopSnackBar(
+                    //     context,
+                    //     CustomSnackBar.error(
+                    //       message:
+                    //       "Empty Feedback!. Please fill your feedback",
+                    //     ),
+                    //   );
+                    }else{
+                      showTopSnackBar(context, CustomSnackBar.error(
+                        message:
+                        "Your Name and message can't be empty",
+                      ),);
+                      return;
                     }
-
+                  Navigator.pop(context);
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),

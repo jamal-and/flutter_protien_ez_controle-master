@@ -1,15 +1,13 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_protien_ez_controle/models/colors.dart';
 import 'package:flutter_protien_ez_controle/models/data.dart';
 import 'package:flutter_protien_ez_controle/screens/feedback_dialog.dart';
-import 'package:flutter_protien_ez_controle/screens/main_screen.dart';
+
 import 'package:flutter_protien_ez_controle/screens/personal_inofrmation_screen.dart';
 import 'package:flutter_protien_ez_controle/screens/premium_screen.dart';
 import 'package:flutter_protien_ez_controle/screens/rating_dialog.dart';
 import 'package:flutter_protien_ez_controle/screens/set_goal_dialog.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -134,6 +132,8 @@ class _SettingScreenState extends State<SettingScreen> {
                   style: TextStyle(
                     color: MyColors.textColor,
                   )),
+
+              subtitle: Text('Are you facing any problems? Please tell us',style: TextStyle(color: MyColors.textColor.withOpacity(0.8),),maxLines: 1,overflow: TextOverflow.ellipsis,),
               trailing: Icon(
                 Icons.chevron_right,
                 color: MyColors.textColor,
@@ -156,6 +156,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   style: TextStyle(
                     color: MyColors.textColor,
                   )),
+              subtitle: Text('Are you enjoying using our app?',style: TextStyle(color: MyColors.textColor.withOpacity(0.8))),
               trailing: Icon(
                 Icons.chevron_right,
                 color: MyColors.textColor,
@@ -165,7 +166,7 @@ class _SettingScreenState extends State<SettingScreen> {
           for (ProductDetails prod in Provider.of<Data>(context, listen: false).products)
             ListTile(
               onTap: () async{
-                String s=await BillingClient((s){}).queryPurchaseHistory(SkuType.subs).then((value) {print('GGG+${value.purchaseHistoryRecordList.length}');return null;});
+                //String s=await BillingClient((s){}).queryPurchaseHistory(SkuType.subs).then((value) {print('GGG+${value.purchaseHistoryRecordList.length}');return null;});
                 print('ss');
                 print(prod.skuDetail.freeTrialPeriod);
                 Navigator.pushNamed(context, PremiumScreen.id);

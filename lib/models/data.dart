@@ -71,8 +71,9 @@ void switchTheme(bool a)async{
 
 
   void verifyPurchase() async{
+    print('ddd start');
     PurchaseDetails purchase = hasPurchased(myProductID);
-
+    print('ddd done22');
     if (purchase != null && purchase.status == PurchaseStatus.purchased) {
 
       if (purchase.pendingCompletePurchase) {
@@ -84,12 +85,18 @@ void switchTheme(bool a)async{
         }
       }
 
-    }
+    }else{isPurchased=false;}
+    print('ddd done');
   }
 
 
   PurchaseDetails hasPurchased(String productID) {
-    return purchases.firstWhere((purchase) => purchase.productID == productID);
+    try{
+      return purchases.firstWhere((purchase) =>
+      purchase.productID == productID);
+    }catch(e){
+      return null;
+    }
   }
 
 
