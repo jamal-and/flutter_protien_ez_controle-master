@@ -16,16 +16,16 @@ class MyRatingDialog extends StatelessWidget {
 
     return RatingDialog(
       initialRating: 2,
-      textColor: MyColors.textColor,
+      
       enableComment: false,
       // your app's name?
-      title: 'Protein Tracker',
+      title: Text('Protein Tracker'),
       // encourage your user to leave a high rating?
       message:
-      'Your review will help us very much to get a good rank on Google Play, thank you very much for your time',
+      Text('Your review will help us very much to get a good rank on Google Play, thank you very much for your time'),
       // your app's logo?
 
-      submitButton: 'Submit',
+      submitButtonText: 'Submit',
       onCancelled: () => print('cancelled'),
       onSubmitted: (response) async {
 

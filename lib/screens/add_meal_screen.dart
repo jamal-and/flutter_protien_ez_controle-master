@@ -68,7 +68,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
       },
     );
 
-    myRewarded.show(onUserEarnedReward: (RewardedAd ad, RewardItem reward) {
+    myRewarded.show(onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
       if(widget.meal==null) {
         Provider.of<Data>(context, listen: false).addMeal(Meal(
             name: nameController.text,

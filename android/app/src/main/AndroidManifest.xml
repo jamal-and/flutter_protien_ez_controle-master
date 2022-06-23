@@ -7,11 +7,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    
    <application
 
         android:label="Protein Tracker"
-       tools:replace="android:label"
+        tools:replace="android:label"
         android:icon="@mipmap/ic_launcher">
        <activity
             android:name=".MainActivity"
@@ -19,6 +19,7 @@
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
+            android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
@@ -51,13 +52,13 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-       <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+       <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver" android:exported="true" tools:replace="android:exported">
            <intent-filter>
                <action android:name="android.intent.action.BOOT_COMPLETED"/>
                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
            </intent-filter>
        </receiver>
-       <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"/>
+       <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" android:exported="true" tools:replace="android:exported"/>
 
        <meta-data
            android:name="com.google.android.gms.ads.APPLICATION_ID"

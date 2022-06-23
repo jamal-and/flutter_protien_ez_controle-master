@@ -134,7 +134,7 @@ class _MainScreenState extends State<MainScreen> {
       },
     );
 
-    myRewarded.show(onUserEarnedReward: (RewardedAd ad, RewardItem reward) {
+    myRewarded.show(onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
       if (protein != null) {
         showDialog(
             context: context,
