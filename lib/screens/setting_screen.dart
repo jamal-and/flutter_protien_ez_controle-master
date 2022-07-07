@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_protien_ez_controle/models/colors.dart';
 import 'package:flutter_protien_ez_controle/models/data.dart';
@@ -13,11 +12,11 @@ import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class SettingScreen extends StatefulWidget {
-  const SettingScreen(
-      {Key key, this.reLoadAds,})
-      : super(key: key);
+  const SettingScreen({
+    Key key,
+    this.reLoadAds,
+  }) : super(key: key);
   final Function reLoadAds;
 
   @override
@@ -52,10 +51,12 @@ class _SettingScreenState extends State<SettingScreen> {
       children: ListTile.divideTiles(
         context: context,
         tiles: [
-
           ListTile(
             onTap: () async {
-              await Navigator.push(context, MaterialPageRoute(builder: (context)=>PersonalInformationScreen()));
+              await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PersonalInformationScreen()));
               setState(() {});
             },
             leading: Icon(
@@ -96,7 +97,7 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
           ),
           GestureDetector(
-            onTap: ()  async {
+            onTap: () async {
               // Data myProvider = Provider.of<Data>(context, listen: false);
               //
               //   if (myProvider.userName == null || myProvider.email == null|| myProvider.email.isEmpty) {
@@ -119,9 +120,11 @@ class _SettingScreenState extends State<SettingScreen> {
               //     );
               //     return;
               //   }
-                showDialog(context: context, builder: (s){
-                  return SendFeedBackDialog();
-                });
+              showDialog(
+                  context: context,
+                  builder: (s) {
+                    return SendFeedBackDialog();
+                  });
             },
             child: ListTile(
               leading: Icon(
@@ -132,8 +135,14 @@ class _SettingScreenState extends State<SettingScreen> {
                   style: TextStyle(
                     color: MyColors.textColor,
                   )),
-
-              subtitle: Text('Are you facing any problems? Please tell us',style: TextStyle(color: MyColors.textColor.withOpacity(0.8),),maxLines: 1,overflow: TextOverflow.ellipsis,),
+              subtitle: Text(
+                'Are you facing any problems? Please tell us',
+                style: TextStyle(
+                  color: MyColors.textColor.withOpacity(0.8),
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
               trailing: Icon(
                 Icons.chevron_right,
                 color: MyColors.textColor,
@@ -156,19 +165,21 @@ class _SettingScreenState extends State<SettingScreen> {
                   style: TextStyle(
                     color: MyColors.textColor,
                   )),
-              subtitle: Text('Are you enjoying using our app?',style: TextStyle(color: MyColors.textColor.withOpacity(0.8))),
+              subtitle: Text('Are you enjoying using our app?',
+                  style: TextStyle(color: MyColors.textColor.withOpacity(0.8))),
               trailing: Icon(
                 Icons.chevron_right,
                 color: MyColors.textColor,
               ),
             ),
           ),
-          for (ProductDetails prod in Provider.of<Data>(context, listen: false).products)
+          for (ProductDetails prod
+              in Provider.of<Data>(context, listen: false).products)
             ListTile(
-              onTap: () async{
+              onTap: () async {
                 //String s=await BillingClient((s){}).queryPurchaseHistory(SkuType.subs).then((value) {print('GGG+${value.purchaseHistoryRecordList.length}');return null;});
                 print('ss');
-                print(prod.skuDetail.freeTrialPeriod);
+                //print(prod.skuDetail.freeTrialPeriod);
                 Navigator.pushNamed(context, PremiumScreen.id);
                 //_buyProduct(prod);
               },
@@ -182,7 +193,9 @@ class _SettingScreenState extends State<SettingScreen> {
               title: Text(
                   Provider.of<Data>(context, listen: false).isPurchased
                       ? 'Premium'
-                      :Provider.of<Data>(context, listen: false).hasFreeTrial?'Free Trial Premium': 'Upgrade Premium!',
+                      : Provider.of<Data>(context, listen: false).hasFreeTrial
+                          ? 'Free Trial Premium'
+                          : 'Upgrade Premium!',
                   style: TextStyle(
                     color: MyColors.accentColor,
                     fontWeight: FontWeight.bold,
@@ -190,7 +203,9 @@ class _SettingScreenState extends State<SettingScreen> {
               subtitle: Text(
                 Provider.of<Data>(context, listen: false).isPurchased
                     ? 'You already Premium'
-                    : Provider.of<Data>(context, listen: false).hasFreeTrial?"Your free trial didn't used yet":'tap to see the features',
+                    : Provider.of<Data>(context, listen: false).hasFreeTrial
+                        ? "Your free trial didn't used yet"
+                        : 'tap to see the features',
                 style: TextStyle(color: MyColors.textColor.withOpacity(0.8)),
               ),
               trailing: Icon(Icons.chevron_right, color: MyColors.accentColor),
@@ -222,7 +237,12 @@ class _SettingScreenState extends State<SettingScreen> {
               launch('https://www.instagram.com/protein_tracker/');
             },
             child: ListTile(
-              leading: SvgPicture.asset('assets/instagram.svg',color: Color(0xffE4405F),height: 24,width: 24,),
+              leading: SvgPicture.asset(
+                'assets/instagram.svg',
+                color: Color(0xffE4405F),
+                height: 24,
+                width: 24,
+              ),
               title: Text('Follow us',
                   style: TextStyle(
                     color: MyColors.textColor,

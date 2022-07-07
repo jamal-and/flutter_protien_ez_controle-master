@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_protien_ez_controle/models/colors.dart';
 import 'package:rating_dialog/rating_dialog.dart';
@@ -12,23 +10,20 @@ class MyRatingDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return RatingDialog(
       initialRating: 2,
-      
+      starSize: 30,
       enableComment: false,
       // your app's name?
       title: Text('Protein Tracker'),
       // encourage your user to leave a high rating?
-      message:
-      Text('Your review will help us very much to get a good rank on Google Play, thank you very much for your time'),
+      message: Text(
+          'Your review will help us very much to get a good rank on Google Play, thank you very much for your time'),
       // your app's logo?
 
       submitButtonText: 'Submit',
       onCancelled: () => print('cancelled'),
       onSubmitted: (response) async {
-
         if (response.rating < 4.0) {
           showTopSnackBar(
             context,
@@ -45,7 +40,6 @@ class MyRatingDialog extends StatelessWidget {
             googlePlayIdentifier: 'com.jamal.protein',
           );
           rateMyApp.launchStore();
-
         }
       },
     );

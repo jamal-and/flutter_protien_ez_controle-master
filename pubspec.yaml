@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.4.2+48
+version: 1.4.4+51
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -26,28 +26,28 @@ dependencies:
   gdpr_dialog: ^2.1.0
   admob_consent: ^1.1.2
   timezone: ^0.8.0
-  flutter_speed_dial: ^4.3.0
-  flutter_svg: ^0.22.0
+  flutter_speed_dial: ^6.0.0
+  flutter_svg: ^1.1.0
   loading_indicator: ^3.0.1
   in_app_purchase: ^0.5.2
-  url_launcher: ^6.0.15
-  firebase_messaging: ^10.0.4
+  url_launcher: ^6.1.4
+  firebase_messaging: ^11.4.2
   bottom_navy_bar: ^6.0.0
-  new_version: ^0.2.2
+  new_version: ^0.3.1
   google_mobile_ads: ^1.0.0
   rating_dialog: ^2.0.1
 
-  top_snackbar_flutter: ^1.0.0
+  top_snackbar_flutter: ^2.0.0
   flutter_native_timezone: ^2.0.0
-  percent_indicator: ^3.0.1
-  provider: ^5.0.0
+  percent_indicator: ^4.2.2
+  provider: ^6.0.3
   image_picker: ^0.8.2
   rate_my_app: ^1.1.0+1
-  firebase_in_app_messaging: ^0.5.0+8
+  firebase_in_app_messaging: ^0.6.0+16
   intl: ^0.17.0
   flutter_local_notifications: ^9.6.1
   shared_preferences: ^2.0.5
-  google_fonts: ^2.0.0
+  google_fonts: ^3.0.1
   sqflite:
   path:
 

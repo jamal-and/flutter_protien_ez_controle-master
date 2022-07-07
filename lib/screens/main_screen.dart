@@ -34,7 +34,6 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter_protien_ez_controle/models/colors.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-
 class MainScreen extends StatefulWidget {
   static String id = 'main_screen';
 
@@ -43,7 +42,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
   int maxFailedLoadAttempts = 20;
   RewardedAd myRewarded;
   int currentIndex = 0;
@@ -53,8 +51,6 @@ class _MainScreenState extends State<MainScreen> {
   bool isProfileBannerReady = false;
   BannerAd myProfileBanner;
   int _numRewardedLoadAttempts = 0;
-
-
 
   bool isIntLoaded = false;
   bool isNativeReady = false;
@@ -222,9 +218,6 @@ class _MainScreenState extends State<MainScreen> {
     //       print('ad Loading Error $error');
     //     }));
 
-
-
-
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       loadAds();
     });
@@ -237,7 +230,6 @@ class _MainScreenState extends State<MainScreen> {
     prefs = await SharedPreferences.getInstance();
 
     if (Provider.of<Data>(context, listen: false).isPurchased == false) {
-
       //myProfileBanner.load();
 
     }
@@ -322,12 +314,21 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
         appBar: AppBar(
-          actions: [if(!myProvider.isPurchased)TextButton(
-              onPressed: () {Navigator.pushNamed(context, PremiumScreen.id);},
-              child: Text(
-                myProvider.hasFreeTrial?'Free Trial Premium':'Upgrade Premium',
-                style: TextStyle(color: MyColors.accentColor,fontWeight: FontWeight.bold),
-              ))],
+          actions: [
+            if (!myProvider.isPurchased)
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, PremiumScreen.id);
+                  },
+                  child: Text(
+                    myProvider.hasFreeTrial
+                        ? 'Free Trial Premium'
+                        : 'Upgrade Premium',
+                    style: TextStyle(
+                        color: MyColors.accentColor,
+                        fontWeight: FontWeight.bold),
+                  ))
+          ],
           title: Row(
             children: [
               Text(
@@ -346,7 +347,6 @@ class _MainScreenState extends State<MainScreen> {
                         color: MyColors.textColor)),
               ),
               Spacer(),
-
             ],
           ),
           backgroundColor: Colors.transparent,
@@ -354,7 +354,6 @@ class _MainScreenState extends State<MainScreen> {
         ),
         backgroundColor: MyColors.background,
         body: PageView(
-
           onPageChanged: (page) {
             setState(() {
               currentIndex = page;
@@ -363,7 +362,6 @@ class _MainScreenState extends State<MainScreen> {
           controller: pageController,
           children: [
             Dashboard(
-
               myProvider: myProvider,
               height: height,
               width: width,
@@ -383,10 +381,10 @@ class _MainScreenState extends State<MainScreen> {
             ),
             ProfileScreen(
               myProvider: myProvider,
-             // nativeAd: myNative3,
+              // nativeAd: myNative3,
               bannerAd: myProfileBanner,
-             ispr: isProfileBannerReady,
-             // isNativeReady: isNativeReady3,
+              ispr: isProfileBannerReady,
+              // isNativeReady: isNativeReady3,
               myInterstitialAd: myInterstitialAd,
               show: showInterstitialAd,
               preference: preference,
@@ -407,8 +405,6 @@ class Dashboard extends StatefulWidget {
       @required this.myProvider,
       @required this.height,
       @required this.width,
-
-
       @required this.pageController,
       @required this.show,
       this.rewardedAd})
@@ -417,7 +413,6 @@ class Dashboard extends StatefulWidget {
   final Data myProvider;
   final double height;
   final double width;
-
 
   final Function show;
   final PageController pageController;
@@ -434,8 +429,10 @@ class _DashboardState extends State<Dashboard> {
   @override
   void dispose() {
     // TODO: implement dispose
-    myBanner.dispose();super.dispose();
+    myBanner.dispose();
+    super.dispose();
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -460,47 +457,54 @@ class _DashboardState extends State<Dashboard> {
     );
     myBanner.load();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
-      floatingActionButton:
-          SpeedDial(
-            backgroundColor: MyColors.accentColor,
-            icon: Icons.add,
-            activeBackgroundColor: MyColors.background,
-            activeIcon: Icons.close,
-            foregroundColor: MyColors.textColor,
-            children: [
-              SpeedDialChild(
-                child: Icon(Icons.add,color: Color(0xff21302f),),
-                label: 'Add with gram',
-                  labelBackgroundColor: MyColors.accentColor,
-                labelStyle: TextStyle(color: Color(0xff21302f)),
-                backgroundColor: MyColors.accentColor,
-                onTap: (){
-                  showDialog(
-                      context: context,
-                      builder: (context) => AddProteinDialog(
-                        showInter: widget.show,
-                      ));
-                }
+      floatingActionButton: SpeedDial(
+        backgroundColor: MyColors.accentColor,
+        icon: Icons.add,
+        activeBackgroundColor: MyColors.background,
+        activeIcon: Icons.close,
+        foregroundColor: MyColors.textColor,
+        children: [
+          SpeedDialChild(
+              child: Icon(
+                Icons.add,
+                color: Color(0xff21302f),
               ),
-              SpeedDialChild(
-                  child: Icon(Icons.brunch_dining_outlined,color: Color(0xff21302f),),
-                  label: 'Add from meals',
-                  labelStyle: TextStyle(color: Color(0xff21302f)),
-                  labelBackgroundColor: MyColors.accentColor,
-                  backgroundColor: MyColors.accentColor ,
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>MealsScreen(interstitialAd: widget.show,)));
-
-                  }
+              label: 'Add with gram',
+              labelBackgroundColor: MyColors.accentColor,
+              labelStyle: TextStyle(color: Color(0xff21302f)),
+              backgroundColor: MyColors.accentColor,
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AddProteinDialog(
+                          showInter: widget.show,
+                        ));
+              }),
+          SpeedDialChild(
+              child: Icon(
+                Icons.brunch_dining_outlined,
+                color: Color(0xff21302f),
               ),
-            ],
-          ),
+              label: 'Add from meals',
+              labelStyle: TextStyle(color: Color(0xff21302f)),
+              labelBackgroundColor: MyColors.accentColor,
+              backgroundColor: MyColors.accentColor,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MealsScreen(
+                              interstitialAd: widget.show,
+                            )));
+              }),
+        ],
+      ),
       // FloatingActionButton(
       //   onPressed: () {
       //     showDialog(
@@ -526,14 +530,13 @@ class _DashboardState extends State<Dashboard> {
                   children: [
                     Column(
                       children: [
-
                         CircularPercentIndicator(
                           circularStrokeCap: CircularStrokeCap.round,
                           backgroundColor:
                               MyColors.accentColor.withOpacity(0.1),
                           progressColor: MyColors.accentColor,
-                          radius: widget.height * 0.28,
-                          lineWidth: widget.height * 0.015,
+                          radius: widget.height * 0.15,
+                          lineWidth: widget.height * 0.01,
                           animation: true,
                           percent: (widget.myProvider.nowProtein.protein /
                                       widget.myProvider.proteinDaily) <=
@@ -681,13 +684,19 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ],
                     ),
-                    if(isBannerReady&&!widget.myProvider.isPurchased)Container(height: myBanner.size.height.toDouble(),width:myBanner.size.width.toDouble(),child: AdWidget(ad: myBanner,),),
+                    if (isBannerReady && !widget.myProvider.isPurchased)
+                      Container(
+                        height: myBanner.size.height.toDouble(),
+                        width: myBanner.size.width.toDouble(),
+                        child: AdWidget(
+                          ad: myBanner,
+                        ),
+                      ),
                     //Container(height: height * 0.25, child: ProteinGraph(height)),
                     //!!! Native ad here !!!
                     SizedBox(
                       height: widget.height * 0.02,
                     ),
-
 
                     GestureDetector(
                       onTap: () {
@@ -1200,14 +1209,14 @@ class StatisticsScreen extends StatelessWidget {
       //@required this.nativeAd,
       //@required this.isNativeReady,
       this.showRewardedAd,
-        // this.myBanner,
-        // this.isBannerReady,
+      // this.myBanner,
+      // this.isBannerReady,
       this.pos})
       : super(key: key);
 
   final Data myProvider;
   //final isNativeReady;
- // final nativeAd;
+  // final nativeAd;
   final double width;
   final int pos;
   //final BannerAd myBanner;
@@ -1370,25 +1379,21 @@ class StatisticsScreen extends StatelessWidget {
                         dailyProtein: myProvider.proteinDaily,
                         rewardedAd: showRewardedAd,
                       ),
-
                       OneDayListItem(
                         protein: myProvider.protein2,
                         dailyProtein: myProvider.proteinDaily,
                         rewardedAd: showRewardedAd,
                       ),
-
                       OneDayListItem(
                         protein: myProvider.protein3,
                         dailyProtein: myProvider.proteinDaily,
                         rewardedAd: showRewardedAd,
                       ),
-
                       OneDayListItem(
                         protein: myProvider.protein4,
                         dailyProtein: myProvider.proteinDaily,
                         rewardedAd: showRewardedAd,
                       ),
-
                       OneDayListItem(
                         protein: myProvider.protein5,
                         dailyProtein: myProvider.proteinDaily,
@@ -1511,6 +1516,7 @@ class _OneDayListItemState extends State<OneDayListItem> {
             subtitle: LinearPercentIndicator(
               animationDuration: 500,
               animation: true,
+              barRadius: Radius.circular(50),
               lineHeight: 8.0,
               percent: getTheDay()[2] == true
                   ? 1
@@ -1658,7 +1664,7 @@ class OneDayCircle extends StatelessWidget {
           CircularPercentIndicator(
             animation: true,
             animationDuration: 500,
-            radius: 20,
+            radius: 10,
             circularStrokeCap: CircularStrokeCap.round,
             percent: wrongValue()
                 ? 0
@@ -1988,8 +1994,8 @@ class ProfileScreen extends StatelessWidget {
       this.show,
       this.dialog,
       this.preference,
-        this.bannerAd,
-        this.ispr
+      this.bannerAd,
+      this.ispr
       //this.isNativeReady,
       //this.nativeAd
       })
@@ -2012,7 +2018,9 @@ class ProfileScreen extends StatelessWidget {
           width: double.infinity,
         ),
 
-        Container(height: bannerAd.size.height.toDouble(),),
+        Container(
+          height: bannerAd.size.height.toDouble(),
+        ),
         // Container(
         //   child: AdmobBanner(
         //     adUnitId: AdsManager.profileBannerId,

@@ -18,10 +18,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:gdpr_dialog/gdpr_dialog.dart';
 
 bool isLoggedIn = false;
-bool isDarkTheme=true;
+bool isDarkTheme = true;
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   InAppPurchaseConnection.enablePendingPurchases();
   await MobileAds.instance.initialize();
@@ -29,7 +28,7 @@ void main() async {
   //Admob.initialize();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   isLoggedIn = prefs.getInt('weight') != null ? true : false;
-  isDarkTheme=prefs.getBool('dark');
+  isDarkTheme = prefs.getBool('dark');
   runApp(MyApp());
 }
 
@@ -63,70 +62,73 @@ class MyMaterialApp extends StatefulWidget {
 
 class _MyMaterialAppState extends State<MyMaterialApp> {
   AdmobConsent _admobConsent = AdmobConsent();
-  Future<void> showAdmobConsent()async{
-    if(!Provider.of<Data>(context,listen: false).isPurchased){
-    _admobConsent.show();
-    _admobConsent.onConsentFormObtained.listen((o) {
-      // Obtained consent
-
-    });}
+  Future<void> showAdmobConsent() async {
+    if (!Provider.of<Data>(context, listen: false).isPurchased) {
+      _admobConsent.show();
+      _admobConsent.onConsentFormObtained.listen((o) {
+        // Obtained consent
+      });
+    }
   }
-  void ss()async{
-    var s=await GdprDialog.instance.getConsentStatus();
-    print('hehe $s');
-}
-void kk()async{
-    await Provider.of<Data>(context,listen: false).initialize();
-    print('${Provider.of<Data>(context,listen: false).isPurchased} asdd');
-    if(!Provider.of<Data>(context,listen: false).isPurchased){//AppOpenAdManager().loadAd();
-    showAdmobConsent();}
 
-}
+  void ss() async {
+    var s = await GdprDialog.instance.getConsentStatus();
+    print('hehe $s');
+  }
+
+  void kk() async {
+    await Provider.of<Data>(context, listen: false).initialize();
+    print('${Provider.of<Data>(context, listen: false).isPurchased} asdd');
+    if (!Provider.of<Data>(context, listen: false).isPurchased) {
+      //AppOpenAdManager().loadAd();
+      showAdmobConsent();
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();//ss();
+    super.initState(); //ss();
     // GdprDialog.instance.showDialog(isForTest: true,)
     //     .then((onValue) {
     //   print('result === $onValue');
     // });
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-
       kk();
-
-    });//appOpenAdManager.showAdIfAvailable();
+    }); //appOpenAdManager.showAdIfAvailable();
     // WidgetsBinding.instance
     //     .addObserver(AppLifecycleReactor(appOpenAdManager: appOpenAdManager));
   }
+
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Protein Tracker',
 
-      theme:Provider.of<Data>(context).darkTheme?
-      ThemeData.dark().copyWith(
-        textTheme: TextTheme(
-          bodyText2: GoogleFonts.lato(),
-          bodyText1: GoogleFonts.lato(),
-        ),
-      ):ThemeData.light().copyWith(
-        textTheme: TextTheme(
-          bodyText2: GoogleFonts.lato(),
-          bodyText1: GoogleFonts.lato(),
-        ),
-      ),
+      theme: Provider.of<Data>(context).darkTheme
+          ? ThemeData.dark().copyWith(
+              textTheme: TextTheme(
+                bodyText2: GoogleFonts.lato(),
+                bodyText1: GoogleFonts.lato(),
+              ),
+            )
+          : ThemeData.light().copyWith(
+              textTheme: TextTheme(
+                bodyText2: GoogleFonts.lato(),
+                bodyText1: GoogleFonts.lato(),
+              ),
+            ),
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
       initialRoute: isLoggedIn ? MainScreen.id : WelcomeScreen.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         MainScreen.id: (context) => MainScreen(),
-        PremiumScreen.id:(context)=>PremiumScreen(),
-        PersonalInformationScreen.id:(context)=>PersonalInformationScreen(),
-        MealsScreen.id:(context)=>MealsScreen(),
-        AddMealScreen.id:(context)=>AddMealScreen(),
+        PremiumScreen.id: (context) => PremiumScreen(),
+        PersonalInformationScreen.id: (context) => PersonalInformationScreen(),
+        MealsScreen.id: (context) => MealsScreen(),
+        AddMealScreen.id: (context) => AddMealScreen(),
       },
     );
   }

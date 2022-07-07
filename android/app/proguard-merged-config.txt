@@ -172,89 +172,89 @@
 #-renamesourcefileattribute SourceFile
 #keep json classes
 -printconfiguration proguard-merged-config.txt
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:44
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:59
 -keep class androidx.core.app.CoreComponentFactory { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:397
--keep class androidx.lifecycle.ProcessLifecycleOwnerInitializer { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:44
--keep class androidx.multidex.MultiDexApplication { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:403
--keep class androidx.room.MultiInstanceInvalidationService { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:296
--keep class androidx.startup.InitializationProvider { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:327
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:337
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:357
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:347
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:377
--keep class androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:366
--keep class androidx.work.impl.background.systemalarm.RescheduleReceiver { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:305
--keep class androidx.work.impl.background.systemalarm.SystemAlarmService { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:310
--keep class androidx.work.impl.background.systemjob.SystemJobService { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:386
--keep class androidx.work.impl.diagnostics.DiagnosticsReceiver { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:316
--keep class androidx.work.impl.foreground.SystemForegroundService { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:322
--keep class androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:203
--keep class com.android.billingclient.api.ProxyBillingActivity { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:97
--keep class com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:111
--keep class com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:49
--keep class com.example.flutter_protien_ez_controle.MainActivity { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:245
--keep class com.google.android.datatransport.runtime.backends.TransportBackendDiscovery { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:258
--keep class com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:252
--keep class com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:208
--keep class com.google.android.gms.ads.AdActivity { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:220
--keep class com.google.android.gms.ads.AdService { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:214
--keep class com.google.android.gms.ads.MobileAdsInitProvider { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:279
--keep class com.google.android.gms.measurement.AppMeasurementJobService { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:269
--keep class com.google.android.gms.measurement.AppMeasurementReceiver { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:275
--keep class com.google.android.gms.measurement.AppMeasurementService { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:420
--keep class com.google.android.play.core.assetpacks.AssetPackExtractionService { <init>(); }
 # Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:414
--keep class com.google.android.play.core.common.PlayCoreDialogWrapperActivity { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:407
--keep class com.google.android.play.core.missingsplits.PlayCoreMissingSplitsActivity { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:143
--keep class com.google.firebase.components.ComponentDiscoveryService { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:225
--keep class com.google.firebase.iid.FirebaseInstanceIdReceiver { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:237
--keep class com.google.firebase.messaging.FirebaseMessagingService { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:262
--keep class com.google.firebase.provider.FirebaseInitProvider { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:122
--keep class io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingBackgroundService { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:176
--keep class io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:134
--keep class io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingReceiver { <init>(); }
+-keep class androidx.lifecycle.ProcessLifecycleOwnerInitializer { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:59
+-keep class androidx.multidex.MultiDexApplication { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:420
+-keep class androidx.room.MultiInstanceInvalidationService { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:302
+-keep class androidx.startup.InitializationProvider { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:333
+-keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:343
+-keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:363
+-keep class androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:353
+-keep class androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:383
+-keep class androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:372
+-keep class androidx.work.impl.background.systemalarm.RescheduleReceiver { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:311
+-keep class androidx.work.impl.background.systemalarm.SystemAlarmService { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:316
+-keep class androidx.work.impl.background.systemjob.SystemJobService { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:392
+-keep class androidx.work.impl.diagnostics.DiagnosticsReceiver { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:322
+-keep class androidx.work.impl.foreground.SystemForegroundService { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:328
+-keep class androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:220
+-keep class com.android.billingclient.api.ProxyBillingActivity { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:112
+-keep class com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver { <init>(); }
 # Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:126
+-keep class com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:64
+-keep class com.example.flutter_protien_ez_controle.MainActivity { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:262
+-keep class com.google.android.datatransport.runtime.backends.TransportBackendDiscovery { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:275
+-keep class com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:269
+-keep class com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:225
+-keep class com.google.android.gms.ads.AdActivity { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:237
+-keep class com.google.android.gms.ads.AdService { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:231
+-keep class com.google.android.gms.ads.MobileAdsInitProvider { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:296
+-keep class com.google.android.gms.measurement.AppMeasurementJobService { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:286
+-keep class com.google.android.gms.measurement.AppMeasurementReceiver { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:292
+-keep class com.google.android.gms.measurement.AppMeasurementService { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:437
+-keep class com.google.android.play.core.assetpacks.AssetPackExtractionService { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:431
+-keep class com.google.android.play.core.common.PlayCoreDialogWrapperActivity { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:424
+-keep class com.google.android.play.core.missingsplits.PlayCoreMissingSplitsActivity { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:137
+-keep class com.google.firebase.components.ComponentDiscoveryService { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:242
+-keep class com.google.firebase.iid.FirebaseInstanceIdReceiver { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:254
+-keep class com.google.firebase.messaging.FirebaseMessagingService { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:279
+-keep class com.google.firebase.provider.FirebaseInitProvider { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:172
+-keep class io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingBackgroundService { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:193
+-keep class io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:184
+-keep class io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingReceiver { <init>(); }
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:176
 -keep class io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingService { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:181
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:198
 -keep class io.flutter.plugins.imagepicker.ImagePickerFileProvider { <init>(); }
-# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:191
+# Referenced at C:\Flutter projects\flutter_protien_ez_controle-master\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:208
 -keep class io.flutter.plugins.urllauncher.WebViewActivity { <init>(); }
 # Referenced at C:\Users\jamal\.gradle\caches\transforms-2\files-2.1\96d56baf507181a475d0728ae744e47e\appcompat-1.1.0\res\layout\abc_alert_dialog_button_bar_material.xml:43
 # Referenced at C:\Users\jamal\.gradle\caches\transforms-2\files-2.1\96d56baf507181a475d0728ae744e47e\appcompat-1.1.0\res\layout\abc_alert_dialog_material.xml:52
@@ -576,6 +576,15 @@
 -keep class androidx.media.** implements android.os.Parcelable {
     public static final android.os.Parcelable$Creator *;
 }
+-keep class * extends androidx.work.Worker
+-keep class * extends androidx.work.InputMerger
+# Keep all constructors on ListenableWorker, Worker (also marked with @Keep)
+-keep public class * extends androidx.work.ListenableWorker {
+    public <init>(...);
+}
+# We need to keep WorkerParameters for the ListenableWorker constructor
+-keep class androidx.work.WorkerParameters
+
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
 # rule, fields may be removed that would cause runtime failures.
@@ -692,15 +701,6 @@
 # We also neep to keep sidecar.** for the same reason.
 -keep class androidx.window.sidecar.** { *; }
 -dontwarn androidx.window.sidecar.**
--keep class * extends androidx.work.Worker
--keep class * extends androidx.work.InputMerger
-# Keep all constructors on ListenableWorker, Worker (also marked with @Keep)
--keep public class * extends androidx.work.ListenableWorker {
-    public <init>(...);
-}
-# We need to keep WorkerParameters for the ListenableWorker constructor
--keep class androidx.work.WorkerParameters
-
 # Copyright (C) 2016 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -806,13 +806,13 @@
 
 -assumenosideeffects class androidx.startup.StartupLogger
 
+-keep class * extends androidx.room.RoomDatabase
+-dontwarn androidx.room.paging.**
+
 -keep class * implements androidx.versionedparcelable.VersionedParcelable
 -keep public class android.support.**Parcelizer { *; }
 -keep public class androidx.**Parcelizer { *; }
 -keep public class androidx.versionedparcelable.ParcelImpl
-
--keep class * extends androidx.room.RoomDatabase
--dontwarn androidx.room.paging.**
 
 -dontwarn com.google.auto.value.AutoValue
 -dontwarn com.google.auto.value.AutoValue$Builder
